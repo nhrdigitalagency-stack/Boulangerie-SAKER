@@ -1,15 +1,30 @@
-import React from 'react';
-import { ArrowRight, Award, BookOpen, Info, MapPin, Quote, ShieldCheck } from 'lucide-react';
+import React, { useState } from 'react';
+import {
+  ArrowRight,
+  Award,
+  BookOpen,
+  ChevronDown,
+  HelpCircle,
+  Info,
+  MapPin,
+  Quote,
+  ShieldCheck,
+} from 'lucide-react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { BRAND_CONFIG } from '../config/brand';
 import { useSiteData } from '../context/SiteDataContext';
 import { ActivePage } from '../components/LeftNavigation';
+import { FaqSkeleton } from '../components/LoadingSkeletons';
 
 interface AboutPageProps {
   onNavigate: (page: ActivePage) => void;
 }
 
 export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
-  const { siteContent } = useSiteData();
+  const { siteContent, isLoadingData } = useSiteData();
+  const shouldReduceMotion = useReducedMotion();
+  const faqItems = siteContent.about.faqItems || [];
+  const [openFaqId, setOpenFaqId] = useState<string | null>(() => faqItems[0]?.id || null);
 
   return (
     <div className="space-y-10">
@@ -142,6 +157,84 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             </article>
           ))}
         </div>
+      </section>
+
+      {/* Section FAQ modifiable depuis Sanity CMS */}
+      <section aria-labelledby="about-faq-heading" className="space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-semibold text-[#E31E24] mb-1">
+              <HelpCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
+              <span>Informations pratiques &amp; réponses directes</span>
+            </div>
+            <h2 id="about-faq-heading" className="text-xl sm:text-2xl font-bold text-[#212529]">
+              {siteContent.about.faqHeading || 'Questions fréquentes sur la Boulangerie SAKER'}
+            </h2>
+          </div>
+          <p className="text-xs text-[#868E96]">
+            {faqItems.length} {faqItems.length > 1 ? 'questions répertoriées' : 'question répertoriée'}
+          </p>
+        </div>
+
+        {isLoadingData ? (
+          <FaqSkeleton />
+        ) : faqItems.length === 0 ? (
+          <div className="bg-white rounded-[14px] border border-[#E6DEC8] p-6 text-xs text-[#5C534C]">
+            Aucune question enregistrée pour le moment. Contactez nos agences au 695 94 46 64 pour
+            toute précision.
+          </div>
+        ) : (
+          <div className="space-y-2.5">
+            {faqItems.map((item) => {
+              const isOpen = openFaqId === item.id;
+              return (
+                <div
+                  key={item.id}
+                  className={`rounded-[14px] border transition-colors bg-white overflow-hidden ${
+                    isOpen ? 'border-[#E31E24]/45 shadow-xs' : 'border-[#E6DEC8]'
+                  }`}
+                >
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    onClick={() => setOpenFaqId(isOpen ? null : item.id)}
+                    className="w-full px-4 sm:px-6 py-4 flex items-center justify-between gap-4 text-left focus-visible:outline-2 focus-visible:outline-[#E31E24]"
+                  >
+                    <span className="text-xs sm:text-sm font-bold text-[#212529] leading-snug">
+                      {item.question}
+                    </span>
+                    <span
+                      className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${
+                        isOpen
+                          ? 'bg-[#E31E24] text-white rotate-180'
+                          : 'bg-[#FAF7F2] text-[#5C534C]'
+                      }`}
+                      aria-hidden="true"
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </span>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={shouldReduceMotion ? { opacity: 1 } : { height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                        transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-4 sm:px-6 pb-4 pt-1 text-xs sm:text-sm text-[#5C534C] leading-relaxed border-t border-[#EFE9DC]">
+                          {item.answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </section>
 
       {/* Accès rapide vers Services, Boutique et Agences */}

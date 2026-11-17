@@ -101,3 +101,34 @@
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@keyframes sakerShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.saker-shimmer {
+  background: linear-gradient(
+    90deg,
+    #efe9dc 0%,
+    #f9f5ee 45%,
+    #efe9dc 100%
+  );
+  background-size: 200% 100%;
+  animation: sakerShimmer 1.6s ease-in-out infinite;
+}
+
+.saker-shimmer-dark {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.16) 45%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+  background-size: 200% 100%;
+  animation: sakerShimmer 1.6s ease-in-out infinite;
+}

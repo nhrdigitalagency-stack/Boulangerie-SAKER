@@ -49,7 +49,7 @@ export const sakerSiteContentSchema = {
   type: 'document',
   fields: [
     { name: 'home', title: 'Page Accueil', type: 'object' },
-    { name: 'about', title: 'Page À propos', type: 'object' },
+    { name: 'about', title: 'Page À propos (incluant faqHeading & faqItems)', type: 'object' },
     { name: 'servicesPage', title: 'Page Services', type: 'object' },
     { name: 'contactPage', title: 'Page Contact & Agences', type: 'object' },
     { name: 'footer', title: 'Pied de page', type: 'object' },

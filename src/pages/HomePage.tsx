@@ -21,6 +21,11 @@ import { useStore } from '../context/StoreContext';
 import { ProductCard } from '../components/ProductCard';
 import { ProductImage } from '../components/ProductImage';
 import { ActivePage } from '../components/LeftNavigation';
+import {
+  CategoryCardSkeleton,
+  HeroSpotlightSkeleton,
+  ProductCardSkeleton,
+} from '../components/LoadingSkeletons';
 
 interface HomePageProps {
   onNavigate: (page: ActivePage, categorySlug?: string) => void;
@@ -36,7 +41,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   onSelectServiceForQuote,
 }) => {
   const { addToCart } = useStore();
-  const { products, categories, siteContent } = useSiteData();
+  const { products, categories, siteContent, isLoadingData } = useSiteData();
   const shouldReduceMotion = useReducedMotion();
 
   const [activeHomeCategory, setActiveHomeCategory] = useState<string>('all');
@@ -248,7 +253,13 @@ export const HomePage: React.FC<HomePageProps> = ({
               </div>
 
               <div className="grid grid-cols-2 gap-2.5 sm:gap-3.5 my-auto">
-                {currentHero.spotlightProducts.map((prod) => {
+                {isLoadingData ? (
+                  <>
+                    <HeroSpotlightSkeleton />
+                    <HeroSpotlightSkeleton />
+                  </>
+                ) : (
+                  currentHero.spotlightProducts.map((prod) => {
                   const isAdded = addedHeroId === prod.id;
                   return (
                     <motion.div
@@ -306,7 +317,8 @@ export const HomePage: React.FC<HomePageProps> = ({
                       </div>
                     </motion.div>
                   );
-                })}
+                  })
+                )}
               </div>
 
               <div className="px-3.5 py-2.5 rounded-[10px] bg-black/30 text-[11px] text-[#EAE0D5] flex items-center justify-between gap-2">
@@ -373,7 +385,9 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-4">
-          {categories.map((cat) => (
+          {isLoadingData
+            ? [0, 1, 2, 3, 4].map((idx) => <CategoryCardSkeleton key={idx} />)
+            : categories.map((cat) => (
             <motion.button
               key={cat.id}
               type="button"
@@ -487,22 +501,34 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
 
         <AnimatePresence mode="wait">
-          <motion.div
-            key={activeHomeCategory}
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -6 }}
-            transition={{ duration: 0.22 }}
-            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-2.5 sm:gap-5"
-          >
-            {featuredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                onSelectProduct={onSelectProduct}
-              />
-            ))}
-          </motion.div>
+          {isLoadingData ? (
+            <div
+              key="home-products-skeleton"
+              aria-label="Chargement des produits depuis Sanity"
+              className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-2.5 sm:gap-5"
+            >
+              {[0, 1, 2, 3, 4, 5, 6, 7].map((idx) => (
+                <ProductCardSkeleton key={idx} />
+              ))}
+            </div>
+          ) : (
+            <motion.div
+              key={activeHomeCategory}
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -6 }}
+              transition={{ duration: 0.22 }}
+              className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-2.5 sm:gap-5"
+            >
+              {featuredProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onSelectProduct={onSelectProduct}
+                />
+              ))}
+            </motion.div>
+          )}
         </AnimatePresence>
 
         <div className="flex justify-center pt-2">

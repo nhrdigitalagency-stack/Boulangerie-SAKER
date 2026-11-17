@@ -29,6 +29,12 @@ export interface HeroUniverseContent {
   ctaPrimaryLabel: string;
 }
 
+export interface SakerFaqItem {
+  id: string;
+  question: string;
+  answer: string;
+}
+
 export interface CmsSiteContent {
   _id?: string;
   home: {
@@ -55,6 +61,8 @@ export interface CmsSiteContent {
     vision: string;
     mission: string;
     unitsOverview: string;
+    faqHeading: string;
+    faqItems: SakerFaqItem[];
   };
   servicesPage: {
     pageTitle: string;
@@ -133,6 +141,39 @@ export const DEFAULT_CMS_SITE_CONTENT: CmsSiteContent = {
     vision: BRAND_CONFIG.history.vision,
     mission: BRAND_CONFIG.history.mission,
     unitsOverview: BRAND_CONFIG.history.unitsOverview,
+    faqHeading: 'Questions fréquentes sur la Boulangerie SAKER',
+    faqItems: [
+      {
+        id: 'faq-livraison-gateaux',
+        question: 'Proposez-vous la livraison à domicile pour les gâteaux de fête ?',
+        answer:
+          'Oui, un service de livraison à domicile dédié est proposé spécifiquement pour les gâteaux de mariage et d’anniversaire à Douala. Les modalités précises et créneaux sont confirmés avec notre équipe lors de la validation de votre commande.',
+      },
+      {
+        id: 'faq-personnalisation',
+        question: 'Peut-on personnaliser un entremet avec un prénom ou une date ?',
+        answer:
+          'Oui, la plupart de nos entremets de la catégorie Pâtisserie fraîche (Forêt noire, Vanille & fraise, Entremets ronds) ainsi que nos cakes acceptent une demande d’inscription et de date souhaitée directement depuis la fiche produit, sous réserve de validation par nos pâtissiers.',
+      },
+      {
+        id: 'faq-agences',
+        question: 'Où trouver les agences Boulangerie SAKER à Douala ?',
+        answer:
+          'Vous pouvez consulter la carte interactive et les numéros directs sur la page « Contact & Agences ». Notre siège social est situé à la Salle de fête d’Akwa, avec des points de vente notamment à Akwa, Makepe, Deïdo, Bali, PK10, Logbaba, Beedi et secteur Aéroport.',
+      },
+      {
+        id: 'faq-traiteur-salles',
+        question: 'Organisez-vous le service traiteur et la location de salles de fêtes ?',
+        answer:
+          'Oui, nous accompagnons vos mariages, anniversaires, colloques, conférences et soutenances avec notre service traiteur et nos salles de fêtes (dont la Salle de fête d’Akwa). Vous pouvez préparer une demande de devis depuis la page « Nos services » ou appeler le 695 94 46 64.',
+      },
+      {
+        id: 'faq-allergenes',
+        question: 'Comment connaître la liste exacte des ingrédients et allergènes d’un produit ?',
+        answer:
+          'Pour toute précision sur les ingrédients, allergènes ou formats disponibles en temps réel, contactez directement nos équipes au 695 94 46 64 ou au 683 35 52 62 avant de finaliser votre commande.',
+      },
+    ],
   },
   servicesPage: {
     pageTitle: 'Nos services événementiels, salons de thé & glaciers',

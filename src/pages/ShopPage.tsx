@@ -5,6 +5,7 @@ import { normalizeSearchText, Product } from '../data/catalog';
 import { useSiteData } from '../context/SiteDataContext';
 import { useStore } from '../context/StoreContext';
 import { ProductCard } from '../components/ProductCard';
+import { ProductCardSkeleton } from '../components/LoadingSkeletons';
 
 interface ShopPageProps {
   selectedCategory: string;
@@ -29,7 +30,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
   onSelectProduct,
 }) => {
   const { favorites } = useStore();
-  const { products, categories } = useSiteData();
+  const { products, categories, isLoadingData } = useSiteData();
   const shouldReduceMotion = useReducedMotion();
   const [sortBy, setSortBy] = useState<SortOption>('default');
   const [budgetFilter, setBudgetFilter] = useState<BudgetFilter>('all');
@@ -125,10 +126,14 @@ export const ShopPage: React.FC<ShopPageProps> = ({
           </div>
 
           <div className="flex items-center gap-2 self-start md:self-auto">
-            <span className="text-xs font-semibold text-[#212529] bg-[#FAF7F2] px-3 py-1.5 rounded-lg border border-[#E6DEC8] tabular-price whitespace-nowrap">
-              {filteredProducts.length}{' '}
-              {filteredProducts.length > 1 ? 'produits affichés' : 'produit affiché'}
-            </span>
+            {isLoadingData ? (
+              <span className="h-7 w-32 rounded-lg saker-shimmer inline-block" aria-hidden="true" />
+            ) : (
+              <span className="text-xs font-semibold text-[#212529] bg-[#FAF7F2] px-3 py-1.5 rounded-lg border border-[#E6DEC8] tabular-price whitespace-nowrap">
+                {filteredProducts.length}{' '}
+                {filteredProducts.length > 1 ? 'produits affichés' : 'produit affiché'}
+              </span>
+            )}
           </div>
         </div>
 
@@ -295,9 +300,19 @@ export const ShopPage: React.FC<ShopPageProps> = ({
         )}
       </div>
 
-      {/* Grille de produits animée ou État vide */}
+      {/* Grille de produits animée, Squelettes de chargement ou État vide */}
       <AnimatePresence mode="wait">
-        {filteredProducts.length === 0 ? (
+        {isLoadingData ? (
+          <div
+            key="loading-shop-skeletons"
+            aria-label="Chargement du catalogue Boulangerie SAKER"
+            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-2.5 sm:gap-5"
+          >
+            {[0, 1, 2, 3, 4, 5, 6, 7].map((idx) => (
+              <ProductCardSkeleton key={idx} />
+            ))}
+          </div>
+        ) : filteredProducts.length === 0 ? (
           <motion.div
             key="empty-shop"
             initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 8 }}

@@ -1340,6 +1340,135 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
                           />
                         </div>
                       </div>
+
+                      {/* Éditeur FAQ de la page À propos */}
+                      <div className="pt-5 mt-2 border-t border-[#EFE9DC] space-y-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                          <div>
+                            <h4 className="text-sm font-bold text-[#212529] font-sans">
+                              Foire aux questions (FAQ — Page À propos)
+                            </h4>
+                            <p className="text-[11px] text-[#5C534C]">
+                              Ajoutez, modifiez ou supprimez les questions fréquentes visibles par
+                              vos clients.
+                            </p>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const currentFaq = contentDraft.about.faqItems || [];
+                              setContentDraft({
+                                ...contentDraft,
+                                about: {
+                                  ...contentDraft.about,
+                                  faqItems: [
+                                    ...currentFaq,
+                                    {
+                                      id: `faq-${Date.now()}`,
+                                      question: '',
+                                      answer: '',
+                                    },
+                                  ],
+                                },
+                              });
+                            }}
+                            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-[10px] bg-[#2A1810] hover:bg-[#3D2418] text-white text-xs font-semibold transition-colors whitespace-nowrap shrink-0"
+                          >
+                            <Plus className="w-3.5 h-3.5" aria-hidden="true" />
+                            <span>Ajouter une question FAQ</span>
+                          </button>
+                        </div>
+
+                        <div>
+                          <label className="block text-xs font-semibold text-[#212529] mb-1">
+                            Titre de la section FAQ
+                          </label>
+                          <input
+                            type="text"
+                            value={contentDraft.about.faqHeading || ''}
+                            onChange={(e) =>
+                              setContentDraft({
+                                ...contentDraft,
+                                about: { ...contentDraft.about, faqHeading: e.target.value },
+                              })
+                            }
+                            className="w-full px-3.5 py-2 rounded-lg bg-[#FAF7F2] border border-[#E6DEC8] text-xs font-semibold"
+                          />
+                        </div>
+
+                        <div className="space-y-3">
+                          {(contentDraft.about.faqItems || []).map((faq, idx) => (
+                            <div
+                              key={faq.id}
+                              className="p-4 rounded-[12px] bg-[#FAF7F2] border border-[#E6DEC8] space-y-2.5"
+                            >
+                              <div className="flex items-center justify-between gap-2">
+                                <span className="text-[11px] font-bold text-[#E31E24]">
+                                  Question #{idx + 1}
+                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const next = (contentDraft.about.faqItems || []).filter(
+                                      (item) => item.id !== faq.id
+                                    );
+                                    setContentDraft({
+                                      ...contentDraft,
+                                      about: { ...contentDraft.about, faqItems: next },
+                                    });
+                                  }}
+                                  className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#868E96] hover:text-[#C92A2A]"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" aria-hidden="true" />
+                                  <span>Supprimer</span>
+                                </button>
+                              </div>
+
+                              <div>
+                                <label className="block text-[11px] font-semibold text-[#212529] mb-1">
+                                  Question
+                                </label>
+                                <input
+                                  type="text"
+                                  required
+                                  placeholder="Ex. Quels sont vos délais pour un gâteau personnalisé ?"
+                                  value={faq.question}
+                                  onChange={(e) => {
+                                    const next = [...(contentDraft.about.faqItems || [])];
+                                    next[idx] = { ...faq, question: e.target.value };
+                                    setContentDraft({
+                                      ...contentDraft,
+                                      about: { ...contentDraft.about, faqItems: next },
+                                    });
+                                  }}
+                                  className="w-full px-3 py-2 rounded-lg bg-white border border-[#E6DEC8] text-xs font-semibold"
+                                />
+                              </div>
+
+                              <div>
+                                <label className="block text-[11px] font-semibold text-[#212529] mb-1">
+                                  Réponse
+                                </label>
+                                <textarea
+                                  rows={2}
+                                  required
+                                  placeholder="Rédigez une réponse claire pour vos clients..."
+                                  value={faq.answer}
+                                  onChange={(e) => {
+                                    const next = [...(contentDraft.about.faqItems || [])];
+                                    next[idx] = { ...faq, answer: e.target.value };
+                                    setContentDraft({
+                                      ...contentDraft,
+                                      about: { ...contentDraft.about, faqItems: next },
+                                    });
+                                  }}
+                                  className="w-full px-3 py-2 rounded-lg bg-white border border-[#E6DEC8] text-xs"
+                                />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   )}
 

@@ -360,6 +360,11 @@ function mergeSiteContent(doc: Partial<CmsSiteContent> | null): CmsSiteContent {
     about: {
       ...DEFAULT_CMS_SITE_CONTENT.about,
       ...(doc.about || {}),
+      faqHeading: doc.about?.faqHeading || DEFAULT_CMS_SITE_CONTENT.about.faqHeading,
+      faqItems:
+        Array.isArray(doc.about?.faqItems)
+          ? doc.about!.faqItems
+          : DEFAULT_CMS_SITE_CONTENT.about.faqItems,
     },
     servicesPage: {
       ...DEFAULT_CMS_SITE_CONTENT.servicesPage,
