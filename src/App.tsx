@@ -19,6 +19,7 @@ import { Footer } from './components/Footer';
 import { AdminLoginModal } from './components/AdminLoginModal';
 import { SitePopupBanner } from './components/SitePopupBanner';
 import { BrandSplashLoader } from './components/BrandSplashLoader';
+import { BakeryJsonLd } from './components/BakeryJsonLd';
 import { HomePage } from './pages/HomePage';
 import { ShopPage } from './pages/ShopPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
@@ -61,20 +62,7 @@ const StorefrontShell: React.FC = () => {
     return () => window.removeEventListener('gmp-quota-exceeded', handleQuotaExceeded);
   }, []);
 
-  // Mise à jour dynamique du titre de la page (SEO)
-  useEffect(() => {
-    const titles: Record<ActivePage, string> = {
-      home: 'Boulangerie SAKER — Pain, Pâtisserie & Traiteur à Douala',
-      shop: 'Boutique & Catalogue — Boulangerie SAKER Douala',
-      product: `${selectedProduct.name} — Boulangerie SAKER`,
-      services: 'Nos Services : Traiteur, Gâteaux, Salles de fêtes & Glaciers — Boulangerie SAKER',
-      about: 'À propos & Histoire depuis 1990 — Boulangerie SAKER',
-      contact: 'Contact & Nos Agences à Douala — Boulangerie SAKER',
-      checkout: 'Préparation de commande — Boulangerie SAKER',
-      admin: 'Administration Propriétaire — Boulangerie SAKER',
-    };
-    document.title = titles[activePage] || 'Boulangerie SAKER — Douala';
-  }, [activePage, selectedProduct]);
+  // Le composant <BakeryJsonLd /> gère dynamiquement le titre SEO, les balises OpenGraph/canoniques et le JSON-LD Schema.org Bakery sur toutes les pages.
 
   const handleNavigate = (
     page: ActivePage,
@@ -138,6 +126,12 @@ const StorefrontShell: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#212529]">
+      {/* Données structurées Schema.org JSON-LD (@type: Bakery) & SEO local Douala sur toutes les pages */}
+      <BakeryJsonLd
+        activePage={activePage}
+        selectedProduct={selectedProduct}
+        selectedCategory={selectedCategory}
+      />
       {/* Préchargeur naturel du logo SAKER à l'ouverture (<= 3 secondes) */}
       <BrandSplashLoader />
       {/* Google Maps Platform Quota Exceeded Sticky Warning Banner */}
