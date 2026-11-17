@@ -311,45 +311,34 @@ export const LeftNavigation: React.FC<LeftNavigationProps> = ({
   );
 
   return (
-    <>
-      {/* Barre latérale gauche fixe sur ordinateur (lg: 1024px+) */}
-      <aside
-        aria-label="Menu latéral Boulangerie SAKER"
-        className="hidden lg:flex lg:flex-col w-[225px] shrink-0 border-r border-[#E6DEC8] bg-white sticky top-0 h-screen"
-      >
-        {renderNavContent(false)}
-      </aside>
-
-      {/* Menu latéral mobile / tablette (< lg) avec transition fluide */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <div
-            className="fixed inset-0 z-50 lg:hidden flex"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Menu principal"
+    <AnimatePresence>
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-50 lg:hidden flex"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu principal"
+        >
+          <motion.div
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/50"
+            onClick={onCloseMobileMenu}
+            aria-hidden="true"
+          />
+          <motion.div
+            initial={shouldReduceMotion ? { x: 0 } : { x: '-100%' }}
+            animate={{ x: 0 }}
+            exit={shouldReduceMotion ? { opacity: 0 } : { x: '-100%' }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className="relative z-10 w-[285px] max-w-[85vw] h-full bg-white shadow-2xl flex flex-col"
           >
-            <motion.div
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/50"
-              onClick={onCloseMobileMenu}
-              aria-hidden="true"
-            />
-            <motion.div
-              initial={shouldReduceMotion ? { x: 0 } : { x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={shouldReduceMotion ? { opacity: 0 } : { x: '-100%' }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="relative z-10 w-[275px] max-w-[85vw] h-full bg-white shadow-2xl flex flex-col"
-            >
-              {renderNavContent(true)}
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-    </>
+            {renderNavContent(true)}
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
   );
 };

@@ -119,13 +119,14 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ initialServiceId }) 
         {servicesList.map((srv, idx) => (
           <article
             key={srv.id}
-            className="bg-white rounded-[16px] border border-[#E6DEC8] p-5 sm:p-6 grid grid-cols-1 md:grid-cols-12 gap-6 items-center"
+            className="group bg-white rounded-[16px] border border-[#E6DEC8] hover:border-[#D4C5AE] hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(42,24,16,0.08)] transition-all duration-200 p-5 sm:p-6 grid grid-cols-1 md:grid-cols-12 gap-6 items-center"
           >
             <div className="md:col-span-4 lg:col-span-3 aspect-[4/3] rounded-[12px] bg-[#F5EFE6] border border-[#E6DEC8] overflow-hidden">
               <ProductImage
                 src={srv.image}
                 alt={srv.title}
                 className="w-full h-full p-4"
+                imgClassName="transition-transform duration-500 ease-out group-hover:scale-105"
               />
             </div>
 
@@ -141,14 +142,16 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ initialServiceId }) 
                 )}
               </div>
 
-              <h2 className="text-lg sm:text-xl font-bold text-[#212529]">{srv.title}</h2>
+              <h2 className="text-lg sm:text-xl font-bold text-[#212529] group-hover:text-[#E31E24] transition-colors">
+                {srv.title}
+              </h2>
               <p className="text-xs sm:text-sm text-[#5C534C] leading-relaxed">{srv.description}</p>
 
               <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
                 {srv.highlights.map((h, i) => (
                   <li
                     key={i}
-                    className="p-2.5 rounded-lg bg-[#FAF7F2] border border-[#E6DEC8] text-[11px] text-[#212529] font-medium leading-snug"
+                    className="p-2.5 rounded-lg bg-[#FAF7F2] border border-[#E6DEC8] hover:border-[#E31E24]/30 transition-colors text-[11px] text-[#212529] font-medium leading-snug"
                   >
                     {h}
                   </li>
@@ -159,15 +162,18 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ initialServiceId }) 
                 <button
                   type="button"
                   onClick={() => handleSelectService(srv.id)}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs font-semibold transition-colors"
+                  className="group/btn inline-flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs font-semibold transition-all hover:shadow-md"
                 >
                   <span>{srv.ctaLabel}</span>
-                  <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                  <ArrowRight
+                    className="w-3.5 h-3.5 transition-transform duration-200 group-hover/btn:translate-x-1"
+                    aria-hidden="true"
+                  />
                 </button>
 
                 <a
                   href="tel:+237695944664"
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-[10px] bg-[#FAF7F2] hover:bg-[#F5EFE6] border border-[#E6DEC8] text-xs font-semibold text-[#212529] transition-colors tabular-price"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-[10px] bg-[#FAF7F2] hover:bg-[#F5EFE6] border border-[#E6DEC8] hover:border-[#D4C5AE] text-xs font-semibold text-[#212529] transition-all tabular-price"
                 >
                   <Phone className="w-3.5 h-3.5 text-[#E31E24]" aria-hidden="true" />
                   <span>Appeler le 695 94 46 64</span>

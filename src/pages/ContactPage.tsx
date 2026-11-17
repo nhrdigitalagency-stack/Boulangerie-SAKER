@@ -89,7 +89,7 @@ export const ContactPage: React.FC = () => {
 
         {/* Cartes des coordonnées principales */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-4 rounded-[14px] bg-[#FAF7F2] border border-[#E6DEC8] space-y-2">
+          <div className="p-4 sm:p-5 rounded-[14px] bg-[#FAF7F2] border border-[#E6DEC8] hover:border-[#E31E24]/35 hover:-translate-y-1 hover:shadow-[0_10px_22px_rgba(42,24,16,0.07)] transition-all duration-200 space-y-2">
             <div className="flex items-center gap-2 text-xs font-bold text-[#212529]">
               <Phone className="w-4 h-4 text-[#E31E24]" aria-hidden="true" />
               <span>Standard &amp; Siège social</span>
@@ -119,7 +119,7 @@ export const ContactPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-4 rounded-[14px] bg-[#FAF7F2] border border-[#E6DEC8] space-y-2">
+          <div className="p-4 sm:p-5 rounded-[14px] bg-[#FAF7F2] border border-[#E6DEC8] hover:border-[#E31E24]/35 hover:-translate-y-1 hover:shadow-[0_10px_22px_rgba(42,24,16,0.07)] transition-all duration-200 space-y-2">
             <div className="flex items-center gap-2 text-xs font-bold text-[#212529]">
               <Building2 className="w-4 h-4 text-[#E31E24]" aria-hidden="true" />
               <span>Siège social &amp; Courrier</span>
@@ -136,7 +136,7 @@ export const ContactPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="p-4 rounded-[14px] bg-[#FAF7F2] border border-[#E6DEC8] space-y-2">
+          <div className="p-4 sm:p-5 rounded-[14px] bg-[#FAF7F2] border border-[#E6DEC8] hover:border-[#E31E24]/35 hover:-translate-y-1 hover:shadow-[0_10px_22px_rgba(42,24,16,0.07)] transition-all duration-200 space-y-2">
             <div className="flex items-center gap-2 text-xs font-bold text-[#212529]">
               <Clock className="w-4 h-4 text-[#E31E24]" aria-hidden="true" />
               <span>Horaires &amp; E-mail (à confirmer)</span>
@@ -197,12 +197,12 @@ export const ContactPage: React.FC = () => {
             return (
               <article
                 key={agency.id}
-                className={`rounded-[14px] border p-4 flex flex-col justify-between gap-3 transition-colors ${
+                className={`group rounded-[14px] border p-4 flex flex-col justify-between gap-3 transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_12px_24px_rgba(42,24,16,0.08)] ${
                   isSelected
                     ? 'bg-[#FFF4F6] border-[#E31E24]'
                     : agency.isHeadquarters
-                    ? 'bg-[#FFF4F6]/40 border-[#E31E24]/30'
-                    : 'bg-white border-[#E6DEC8]'
+                    ? 'bg-[#FFF4F6]/40 border-[#E31E24]/30 hover:border-[#E31E24]'
+                    : 'bg-white border-[#E6DEC8] hover:border-[#E31E24]/40'
                 }`}
               >
                 <div className="space-y-1">
@@ -210,7 +210,7 @@ export const ContactPage: React.FC = () => {
                     <span>{agency.district}</span>
                     <span>{agency.postalBox}</span>
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-[#212529] font-sans">
+                  <h3 className="text-sm sm:text-base font-bold text-[#212529] group-hover:text-[#E31E24] transition-colors font-sans">
                     {agency.name}
                   </h3>
                   {agency.note && (
@@ -230,7 +230,7 @@ export const ContactPage: React.FC = () => {
 
                   <a
                     href={`tel:${agency.phoneClean}`}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs font-semibold transition-colors whitespace-nowrap shrink-0"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs font-semibold transition-all hover:shadow-sm whitespace-nowrap shrink-0"
                   >
                     <Phone className="w-3 h-3" aria-hidden="true" />
                     <span>Appeler</span>

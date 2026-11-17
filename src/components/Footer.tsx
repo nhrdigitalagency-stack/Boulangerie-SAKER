@@ -14,7 +14,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
 
   return (
     <footer className="mt-14 border-t border-[#E6DEC8] bg-white text-[#212529]">
-      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10 py-10">
+      <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-14 py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Colonne 1 : Marque & Histoire */}
           <div className="space-y-3">
@@ -42,7 +42,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
                   <button
                     type="button"
                     onClick={() => onNavigate('shop', cat.slug)}
-                    className="hover:text-[#E31E24] transition-colors text-left"
+                    className="hover:text-[#E31E24] hover:translate-x-1 transition-all duration-150 text-left inline-block"
                   >
                     {cat.name} ({cat.count})
                   </button>
@@ -61,7 +61,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
                 <button
                   type="button"
                   onClick={() => onNavigate('services')}
-                  className="hover:text-[#E31E24] transition-colors text-left"
+                  className="hover:text-[#E31E24] hover:translate-x-1 transition-all duration-150 text-left inline-block"
                 >
                   Service traiteur &amp; Événements
                 </button>
@@ -70,7 +70,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
                 <button
                   type="button"
                   onClick={() => onNavigate('services')}
-                  className="hover:text-[#E31E24] transition-colors text-left"
+                  className="hover:text-[#E31E24] hover:translate-x-1 transition-all duration-150 text-left inline-block"
                 >
                   Gâteaux de mariage et d’anniversaire
                 </button>
@@ -79,7 +79,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
                 <button
                   type="button"
                   onClick={() => onNavigate('services')}
-                  className="hover:text-[#E31E24] transition-colors text-left"
+                  className="hover:text-[#E31E24] hover:translate-x-1 transition-all duration-150 text-left inline-block"
                 >
                   Salles de fêtes, Salons de thé &amp; Glaciers
                 </button>
@@ -88,7 +88,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
                 <button
                   type="button"
                   onClick={() => onNavigate('about')}
-                  className="hover:text-[#E31E24] transition-colors text-left"
+                  className="hover:text-[#E31E24] hover:translate-x-1 transition-all duration-150 text-left inline-block"
                 >
                   Notre histoire &amp; nos valeurs
                 </button>
@@ -97,7 +97,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
                 <button
                   type="button"
                   onClick={() => onNavigate('contact')}
-                  className="hover:text-[#E31E24] transition-colors text-left"
+                  className="hover:text-[#E31E24] hover:translate-x-1 transition-all duration-150 text-left inline-block"
                 >
                   Nos agences à Douala &amp; Contact
                 </button>

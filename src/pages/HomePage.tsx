@@ -115,14 +115,14 @@ export const HomePage: React.FC<HomePageProps> = ({
   };
 
   return (
-    <div className="space-y-8 sm:space-y-12">
-      {/* A. VITRINE PRINCIPALE GOURMANDE INTERACTIVE */}
+    <div className="space-y-10 sm:space-y-14">
+      {/* A. VITRINE PRINCIPALE FULL-SCREEN EDGE-TO-EDGE */}
       <section
         aria-label="Vitrine Boulangerie SAKER"
-        className="relative rounded-[18px] sm:rounded-[22px] overflow-hidden bg-[#2A1810] text-white border border-[#3D2418] shadow-[0_14px_34px_rgba(42,24,16,0.16)]"
+        className="relative w-full min-h-[calc(100vh-76px)] flex flex-col justify-between overflow-hidden bg-[#2A1810] text-white border-b border-[#3D2418] shadow-[0_14px_34px_rgba(42,24,16,0.16)]"
       >
         {/* Barre supérieure de sélection des 3 univers gourmands SAKER */}
-        <div className="bg-[#21120B] border-b border-white/10 px-3.5 sm:px-8 py-2.5 flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
+        <div className="bg-[#21120B] border-b border-white/10 px-4 sm:px-6 lg:px-10 xl:px-14 py-3 flex items-center justify-between gap-2 overflow-x-auto no-scrollbar shrink-0">
           <div
             role="tablist"
             aria-label="Choisir un univers Boulangerie SAKER"
@@ -143,7 +143,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   role="tab"
                   aria-selected={active}
                   onClick={() => setHeroTab(tab.id)}
-                  className={`relative px-3 py-1.5 rounded-lg text-[11px] sm:text-xs font-semibold transition-colors whitespace-nowrap shrink-0 ${
+                  className={`relative px-3.5 py-2 rounded-lg text-[11px] sm:text-xs font-semibold transition-colors whitespace-nowrap shrink-0 ${
                     active ? 'text-[#212529]' : 'text-[#EAE0D5]/80 hover:text-white'
                   }`}
                 >
@@ -167,7 +167,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           </span>
         </div>
 
-        {/* Contenu animé de la vitrine */}
+        {/* Contenu animé de la vitrine pleine largeur & pleine hauteur */}
         <AnimatePresence mode="wait">
           <motion.div
             key={heroTab}
@@ -175,78 +175,85 @@ export const HomePage: React.FC<HomePageProps> = ({
             animate={{ opacity: 1, y: 0 }}
             exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
             transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-            className="grid grid-cols-1 lg:grid-cols-12 items-stretch"
+            className="flex-1 grid grid-cols-1 lg:grid-cols-12 items-stretch"
           >
             {/* Colonne éditoriale */}
-            <div className="lg:col-span-7 p-5 sm:p-8 lg:p-10 flex flex-col justify-between gap-6">
-              <div className="space-y-3.5 sm:space-y-4">
+            <div className="lg:col-span-7 px-4 sm:px-6 lg:px-10 xl:px-14 py-8 sm:py-10 lg:py-12 flex flex-col justify-between gap-8">
+              <div className="space-y-4 sm:space-y-5 my-auto">
                 <div className="inline-flex items-center gap-2 text-xs text-[#F5B316] font-semibold tracking-wide">
                   <Croissant className="w-4 h-4 shrink-0" aria-hidden="true" />
                   <span>{currentHero.badge}</span>
                 </div>
 
-                <h1 className="text-2xl sm:text-3xl lg:text-[38px] font-bold leading-[1.15] text-white">
+                <h1 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-bold leading-[1.12] text-white max-w-3xl">
                   {currentHero.title}
                 </h1>
 
-                <p className="text-xs sm:text-base text-[#EAE0D5] leading-relaxed max-w-xl">
+                <p className="text-sm sm:text-base lg:text-lg text-[#EAE0D5] leading-relaxed max-w-2xl">
                   {currentHero.subtitle}
                 </p>
-              </div>
 
-              <div className="space-y-5">
-                <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+                <div className="pt-2 flex flex-wrap items-center gap-3">
                   <motion.button
                     type="button"
+                    whileHover={shouldReduceMotion ? undefined : { y: -2 }}
                     whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
                     onClick={() => onNavigate('shop', currentHero.ctaCategory)}
-                    className="inline-flex items-center gap-2 px-4 sm:px-5 py-3 rounded-[10px] bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap shadow-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F5B316]"
+                    className="group inline-flex items-center gap-2 px-5 sm:px-6 py-3.5 rounded-[10px] bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs sm:text-sm font-semibold transition-all whitespace-nowrap shadow-md hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F5B316]"
                   >
                     <span>{currentHero.ctaPrimaryLabel}</span>
-                    <ArrowRight className="w-4 h-4 shrink-0" aria-hidden="true" />
+                    <ArrowRight
+                      className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1"
+                      aria-hidden="true"
+                    />
+                  </motion.button>
+
+                  <motion.button
+                    type="button"
+                    whileHover={shouldReduceMotion ? undefined : { y: -2 }}
+                    whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
+                    onClick={() => onNavigate('shop', 'all')}
+                    className="inline-flex items-center gap-2 px-5 sm:px-6 py-3.5 rounded-[10px] bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F5B316]"
+                  >
+                    <span>Tout le catalogue ({products.length})</span>
                   </motion.button>
 
                   <button
                     type="button"
-                    onClick={() => onNavigate('shop', 'all')}
-                    className="inline-flex items-center gap-2 px-4 sm:px-5 py-3 rounded-[10px] bg-white/10 hover:bg-white/18 text-white border border-white/20 text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F5B316]"
-                  >
-                    <span>Tout le catalogue ({products.length})</span>
-                  </button>
-
-                  <button
-                    type="button"
                     onClick={() => onNavigate('contact')}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-3 rounded-[10px] text-xs font-semibold text-[#F5B316] hover:text-white transition-colors whitespace-nowrap"
+                    className="group inline-flex items-center gap-1.5 px-3.5 py-3 rounded-[10px] text-xs font-semibold text-[#F5B316] hover:text-white transition-colors whitespace-nowrap"
                   >
-                    <MapPin className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                    <MapPin
+                      className="w-3.5 h-3.5 shrink-0 transition-transform duration-200 group-hover:scale-110"
+                      aria-hidden="true"
+                    />
                     <span>Carte des agences</span>
                   </button>
                 </div>
+              </div>
 
-                {/* Aperçu visuel de la bannière officielle SAKER associée */}
-                <div className="hidden sm:flex items-center gap-3.5 p-2.5 rounded-[12px] bg-black/25 border border-white/10">
-                  <div className="w-20 h-12 rounded-lg overflow-hidden bg-[#3D2418] shrink-0">
-                    <img
-                      src={currentHero.bannerImg || BRAND_CONFIG.banners.painSaker}
-                      alt={currentHero.bannerAlt}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-xs font-semibold text-white truncate">
-                      Savoir-faire Boulangerie SAKER — Douala
-                    </p>
-                    <p className="text-[11px] text-[#EAE0D5]/80 truncate">
-                      Commandez en ligne ou retirez vos produits dans nos 9 agences de proximité.
-                    </p>
-                  </div>
+              {/* Aperçu visuel de la bannière officielle SAKER associée */}
+              <div className="group hidden sm:flex items-center gap-3.5 p-3 rounded-[12px] bg-black/25 hover:bg-black/35 border border-white/10 hover:border-white/20 transition-colors max-w-2xl">
+                <div className="w-24 h-14 rounded-lg overflow-hidden bg-[#3D2418] shrink-0">
+                  <img
+                    src={currentHero.bannerImg || BRAND_CONFIG.banners.painSaker}
+                    alt={currentHero.bannerAlt}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-semibold text-white truncate">
+                    Savoir-faire Boulangerie SAKER — Douala
+                  </p>
+                  <p className="text-[11px] text-[#EAE0D5]/80 truncate">
+                    Commandez en ligne ou retirez vos produits dans nos 9 agences de proximité.
+                  </p>
                 </div>
               </div>
             </div>
 
             {/* Colonne visuelle gourmande avec vrais produits SAKER interactifs */}
-            <div className="lg:col-span-5 bg-[#362015] p-4 sm:p-6 flex flex-col justify-between gap-3.5 border-t lg:border-t-0 lg:border-l border-white/10">
+            <div className="lg:col-span-5 bg-[#362015] px-4 sm:px-6 lg:px-8 xl:px-12 py-6 sm:py-8 lg:py-10 flex flex-col justify-between gap-4 border-t lg:border-t-0 lg:border-l border-white/10">
               <div className="flex items-center justify-between text-xs text-[#EAE0D5]">
                 <span className="font-semibold text-[#F5B316]">Sélection directe de l’univers</span>
                 <span className="text-[11px] opacity-80">Ajout immédiat au panier</span>
@@ -330,34 +337,38 @@ export const HomePage: React.FC<HomePageProps> = ({
         </AnimatePresence>
       </section>
 
-      {/* B. BANDEAU DE RÉASSURANCE MÉTIER (Ultra-responsive 2x2 sur mobile, 4 colonnes sur desktop) */}
-      <section
-        aria-label="Points forts Boulangerie SAKER"
-        className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4"
-      >
-        {siteContent.home.reassuranceItems.map((item, index) => {
-          const icons = [Award, Store, Croissant, Clock];
-          const IconComponent = icons[index % icons.length];
-          return (
-            <div
-              key={index}
-              className="bg-white rounded-[14px] border border-[#E6DEC8] p-3.5 sm:p-4 flex items-start gap-3 shadow-[0_2px_10px_rgba(42,24,16,0.03)]"
-            >
-              <div className="w-9 h-9 rounded-[10px] bg-[#FFF4F6] border border-[#E31E24]/20 flex items-center justify-center text-[#E31E24] shrink-0">
-                <IconComponent className="w-4 h-4" aria-hidden="true" />
-              </div>
-              <div className="min-w-0">
-                <h2 className="text-xs sm:text-sm font-bold text-[#212529] font-sans truncate">
-                  {item.title}
-                </h2>
-                <p className="text-[11px] text-[#5C534C] leading-snug mt-0.5 line-clamp-2">
-                  {item.desc}
-                </p>
-              </div>
-            </div>
-          );
-        })}
-      </section>
+      {/* Contenu éditorial & catalogue pleine page */}
+      <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-14 space-y-10 sm:space-y-14">
+        {/* B. BANDEAU DE RÉASSURANCE MÉTIER */}
+        <section
+          aria-label="Points forts Boulangerie SAKER"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5"
+        >
+          {siteContent.home.reassuranceItems.map((item, index) => {
+            const icons = [Award, Store, Croissant, Clock];
+            const IconComponent = icons[index % icons.length];
+            return (
+              <motion.div
+                key={index}
+                whileHover={shouldReduceMotion ? undefined : { y: -4 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="group bg-white rounded-[14px] border border-[#E6DEC8] hover:border-[#E31E24]/35 p-4 sm:p-5 flex items-start gap-3.5 shadow-[0_2px_10px_rgba(42,24,16,0.03)] hover:shadow-[0_12px_26px_rgba(42,24,16,0.08)] transition-colors"
+              >
+                <div className="w-10 h-10 rounded-[10px] bg-[#FFF4F6] group-hover:bg-[#E31E24] border border-[#E31E24]/20 flex items-center justify-center text-[#E31E24] group-hover:text-white transition-colors shrink-0">
+                  <IconComponent className="w-4 h-4" aria-hidden="true" />
+                </div>
+                <div className="min-w-0">
+                  <h2 className="text-xs sm:text-sm font-bold text-[#212529] font-sans truncate">
+                    {item.title}
+                  </h2>
+                  <p className="text-[11px] sm:text-xs text-[#5C534C] leading-snug mt-0.5 line-clamp-2">
+                    {item.desc}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </section>
 
       {/* C. ACCÈS RAPIDE AUX CATÉGORIES VÉRIFIÉES */}
       <section aria-labelledby="home-categories-heading" className="space-y-4">
@@ -394,14 +405,14 @@ export const HomePage: React.FC<HomePageProps> = ({
               whileHover={shouldReduceMotion ? undefined : { y: -4 }}
               whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
               onClick={() => onNavigate('shop', cat.slug)}
-              className="group bg-white hover:bg-[#FFF4F6]/35 rounded-[14px] p-3 sm:p-3.5 border border-[#E6DEC8] hover:border-[#E31E24]/40 transition-colors text-left flex flex-col justify-between gap-2.5 shadow-[0_2px_10px_rgba(42,24,16,0.04)] hover:shadow-[0_12px_24px_rgba(42,24,16,0.08)] focus-visible:outline-2 focus-visible:outline-[#E31E24]"
+              className="group bg-white hover:bg-[#FFF4F6]/35 rounded-[14px] p-3 sm:p-4 border border-[#E6DEC8] hover:border-[#E31E24]/45 transition-colors text-left flex flex-col justify-between gap-2.5 shadow-[0_2px_10px_rgba(42,24,16,0.04)] hover:shadow-[0_14px_28px_rgba(42,24,16,0.09)] focus-visible:outline-2 focus-visible:outline-[#E31E24]"
             >
               <div className="w-full aspect-[4/3] rounded-[10px] bg-gradient-to-b from-[#F8F3EB] to-[#F2E9DC] overflow-hidden">
                 <ProductImage
                   src={cat.representativeImage}
                   alt={cat.name}
                   className="w-full h-full p-2"
-                  imgClassName="transition-transform duration-300 group-hover:scale-108"
+                  imgClassName="transition-transform duration-500 ease-out group-hover:scale-110"
                 />
               </div>
               <div className="flex items-end justify-between gap-2">
@@ -415,9 +426,9 @@ export const HomePage: React.FC<HomePageProps> = ({
                 </div>
                 <span
                   aria-hidden="true"
-                  className="w-6 h-6 rounded-full bg-[#FAF7F2] group-hover:bg-[#E31E24] text-[#5C534C] group-hover:text-white flex items-center justify-center transition-colors shrink-0"
+                  className="w-7 h-7 rounded-full bg-[#FAF7F2] group-hover:bg-[#E31E24] text-[#5C534C] group-hover:text-white flex items-center justify-center transition-all duration-200 group-hover:translate-x-0.5 shrink-0"
                 >
-                  <ArrowRight className="w-3 h-3" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </div>
             </motion.button>
@@ -601,10 +612,13 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <button
                   type="button"
                   onClick={() => onSelectServiceForQuote(srv.id)}
-                  className="w-full py-2.5 px-3.5 rounded-[10px] bg-[#FAF7F2] hover:bg-[#E31E24] border border-[#E6DEC8] hover:border-[#E31E24] text-xs font-semibold text-[#212529] hover:text-white transition-colors flex items-center justify-between"
+                  className="group/btn w-full py-2.5 px-3.5 rounded-[10px] bg-[#FAF7F2] hover:bg-[#E31E24] border border-[#E6DEC8] hover:border-[#E31E24] text-xs font-semibold text-[#212529] hover:text-white transition-all flex items-center justify-between"
                 >
                   <span>{srv.ctaLabel}</span>
-                  <ArrowRight className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                  <ArrowRight
+                    className="w-3.5 h-3.5 shrink-0 transition-transform duration-200 group-hover/btn:translate-x-1"
+                    aria-hidden="true"
+                  />
                 </button>
               </div>
             </motion.article>
@@ -614,16 +628,23 @@ export const HomePage: React.FC<HomePageProps> = ({
         {/* Seconde rangée : Salons de thé & Glaciers modernes */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {siteContent.servicesPage.services.slice(3, 5).map((srv) => (
-            <article
+            <motion.article
               key={srv.id}
-              className="bg-white rounded-[14px] border border-[#E6DEC8] p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[0_2px_10px_rgba(42,24,16,0.03)]"
+              whileHover={shouldReduceMotion ? undefined : { y: -3 }}
+              transition={{ duration: 0.2 }}
+              className="group bg-white rounded-[14px] border border-[#E6DEC8] hover:border-[#D4C5AE] p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[0_2px_10px_rgba(42,24,16,0.03)] hover:shadow-[0_10px_24px_rgba(42,24,16,0.07)] transition-colors"
             >
               <div className="flex items-center gap-3.5">
                 <div className="w-16 h-16 rounded-[12px] bg-[#F5EFE6] border border-[#E6DEC8] shrink-0 overflow-hidden">
-                  <ProductImage src={srv.image} alt={srv.title} className="w-full h-full p-2" />
+                  <ProductImage
+                    src={srv.image}
+                    alt={srv.title}
+                    className="w-full h-full p-2"
+                    imgClassName="transition-transform duration-300 group-hover:scale-108"
+                  />
                 </div>
                 <div className="space-y-1">
-                  <h3 className="text-sm sm:text-base font-bold text-[#212529] font-sans">
+                  <h3 className="text-sm sm:text-base font-bold text-[#212529] group-hover:text-[#E31E24] transition-colors font-sans">
                     {srv.title}
                   </h3>
                   <p className="text-xs text-[#5C534C] leading-relaxed">{srv.summary}</p>
@@ -632,11 +653,11 @@ export const HomePage: React.FC<HomePageProps> = ({
               <button
                 type="button"
                 onClick={() => onSelectServiceForQuote(srv.id)}
-                className="w-full sm:w-auto px-3.5 py-2.5 rounded-[10px] bg-[#FAF7F2] hover:bg-[#F5EFE6] border border-[#E6DEC8] text-xs font-semibold text-[#212529] transition-colors whitespace-nowrap shrink-0 text-center"
+                className="w-full sm:w-auto px-3.5 py-2.5 rounded-[10px] bg-[#FAF7F2] hover:bg-[#E31E24] border border-[#E6DEC8] hover:border-[#E31E24] text-xs font-semibold text-[#212529] hover:text-white transition-all whitespace-nowrap shrink-0 text-center"
               >
                 {srv.ctaLabel}
               </button>
-            </article>
+            </motion.article>
           ))}
         </div>
       </section>
@@ -674,27 +695,34 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
 
             <div className="pt-2 flex flex-wrap items-center gap-2.5 sm:gap-3">
-              <button
+              <motion.button
                 type="button"
+                whileHover={shouldReduceMotion ? undefined : { y: -1 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
                 onClick={() => onNavigate('about')}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-[#212529] hover:bg-[#343A40] text-white text-xs font-semibold transition-colors whitespace-nowrap"
+                className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-[#212529] hover:bg-[#343A40] text-white text-xs font-semibold transition-all whitespace-nowrap"
               >
                 <span>Découvrir toute notre histoire</span>
-                <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-              </button>
+                <ArrowRight
+                  className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
+              </motion.button>
 
-              <button
+              <motion.button
                 type="button"
+                whileHover={shouldReduceMotion ? undefined : { y: -1 }}
+                whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
                 onClick={() => onNavigate('contact')}
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-[#FAF7F2] hover:bg-[#F5EFE6] border border-[#E6DEC8] text-xs font-semibold text-[#212529] transition-colors whitespace-nowrap"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-[10px] bg-[#FAF7F2] hover:bg-[#F5EFE6] border border-[#E6DEC8] hover:border-[#D4C5AE] text-xs font-semibold text-[#212529] transition-all whitespace-nowrap"
               >
                 <MapPin className="w-3.5 h-3.5 text-[#E31E24]" aria-hidden="true" />
                 <span>Carte &amp; Agences à Douala</span>
-              </button>
+              </motion.button>
             </div>
           </div>
 
-          <div className="lg:col-span-5 bg-[#FAF7F2] rounded-[14px] p-4 sm:p-5 border border-[#E6DEC8] space-y-3.5">
+          <div className="lg:col-span-5 bg-[#FAF7F2] rounded-[14px] p-4 sm:p-5 border border-[#E6DEC8] hover:border-[#D4C5AE] transition-colors space-y-3.5">
             <div className="flex items-center gap-2.5">
               <CalendarHeart className="w-5 h-5 text-[#E31E24] shrink-0" aria-hidden="true" />
               <h3 className="text-sm font-bold text-[#212529] font-sans">
@@ -731,7 +759,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
             <a
               href="tel:+237695944664"
-              className="w-full py-2.5 px-4 rounded-[10px] bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
+              className="w-full py-2.5 px-4 rounded-[10px] bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all hover:shadow-md"
             >
               <Phone className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
               <span>Appeler le 695 94 46 64</span>
@@ -739,6 +767,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 };

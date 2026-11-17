@@ -45,9 +45,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       layout={!shouldReduceMotion}
       initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={shouldReduceMotion ? undefined : { y: -4 }}
-      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative bg-white rounded-[14px] border border-[#E6DEC8] hover:border-[#D4C5AE] transition-colors duration-200 flex flex-col h-full overflow-hidden focus-within:ring-2 focus-within:ring-[#E31E24] shadow-[0_2px_12px_rgba(42,24,16,0.045)] hover:shadow-[0_14px_30px_rgba(42,24,16,0.09)]"
+      whileHover={shouldReduceMotion ? undefined : { y: -5 }}
+      transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative bg-white rounded-[14px] border border-[#E6DEC8] hover:border-[#E31E24]/35 transition-all duration-200 flex flex-col h-full overflow-hidden focus-within:ring-2 focus-within:ring-[#E31E24] shadow-[0_2px_12px_rgba(42,24,16,0.045)] hover:shadow-[0_16px_34px_rgba(42,24,16,0.10)]"
     >
       {/* Zone Image cliquable avec effet de zoom doux et aperçu */}
       <div className="relative aspect-[4/3] w-full bg-gradient-to-b from-[#F8F3EB] to-[#F2E9DC] overflow-hidden">
@@ -63,13 +63,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             category={product.category}
             priority={priority}
             className="w-full h-full p-2.5 sm:p-4"
-            imgClassName="transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+            imgClassName="transition-transform duration-500 ease-out group-hover:scale-[1.08]"
           />
 
           {/* Indication discrète au survol sur grand écran */}
           <span
             aria-hidden="true"
-            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#2A1810]/85 text-white text-[11px] font-medium absolute bottom-2.5 left-2.5 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 pointer-events-none"
+            className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#2A1810]/85 text-white text-[11px] font-medium absolute bottom-2.5 left-2.5 opacity-0 translate-y-1.5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 pointer-events-none"
           >
             <Eye className="w-3 h-3 text-[#F5B316]" />
             <span>Voir détails</span>
@@ -79,6 +79,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         {/* Bouton Favori fonctionnel avec micro-interaction */}
         <motion.button
           type="button"
+          whileHover={shouldReduceMotion ? undefined : { scale: 1.08 }}
           whileTap={shouldReduceMotion ? undefined : { scale: 0.85 }}
           onClick={handleToggleFav}
           aria-label={fav ? `Retirer ${product.name} des favoris` : `Ajouter ${product.name} aux favoris`}
@@ -86,7 +87,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           className={`absolute top-2 right-2 sm:top-2.5 sm:right-2.5 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-colors border ${
             fav
               ? 'bg-white text-[#E31E24] border-[#E31E24]/30 shadow-xs'
-              : 'bg-white/95 text-[#5C534C] border-[#E6DEC8] hover:text-[#E31E24] hover:bg-white'
+              : 'bg-white/95 text-[#5C534C] border-[#E6DEC8] hover:text-[#E31E24] hover:border-[#E31E24]/30 hover:bg-white'
           } focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E31E24]`}
         >
           <Heart className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform ${fav ? 'fill-[#E31E24] scale-110' : ''}`} aria-hidden="true" />

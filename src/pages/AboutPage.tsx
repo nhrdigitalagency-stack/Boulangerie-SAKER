@@ -48,7 +48,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           {BRAND_CONFIG.history.milestones.map((m) => (
             <div
               key={m.year}
-              className="p-4 rounded-[14px] bg-[#FAF7F2] border border-[#E6DEC8] flex flex-col justify-between gap-2"
+              className="p-4 rounded-[14px] bg-[#FAF7F2] border border-[#E6DEC8] hover:border-[#E31E24]/40 hover:-translate-y-1 hover:shadow-[0_10px_22px_rgba(42,24,16,0.07)] transition-all duration-200 flex flex-col justify-between gap-2"
             >
               <div>
                 <span className="text-lg font-bold text-[#E31E24] font-display tabular-price">
@@ -98,7 +98,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
 
       {/* Notre Vision, Notre Mission & Nos Unités */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div className="bg-white rounded-[16px] border border-[#E6DEC8] p-5 sm:p-6 space-y-2">
+        <div className="bg-white rounded-[16px] border border-[#E6DEC8] hover:border-[#E31E24]/35 hover:-translate-y-1 hover:shadow-[0_12px_26px_rgba(42,24,16,0.08)] transition-all duration-200 p-5 sm:p-6 space-y-2">
           <span className="text-xs font-bold text-[#E31E24]">01. Notre Vision</span>
           <h2 className="text-base sm:text-lg font-bold text-[#212529] font-sans">
             Qualité et respect des normes alimentaires
@@ -108,7 +108,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           </p>
         </div>
 
-        <div className="bg-white rounded-[16px] border border-[#E6DEC8] p-5 sm:p-6 space-y-2">
+        <div className="bg-white rounded-[16px] border border-[#E6DEC8] hover:border-[#E31E24]/35 hover:-translate-y-1 hover:shadow-[0_12px_26px_rgba(42,24,16,0.08)] transition-all duration-200 p-5 sm:p-6 space-y-2">
           <span className="text-xs font-bold text-[#E31E24]">02. Notre Mission</span>
           <h2 className="text-base sm:text-lg font-bold text-[#212529] font-sans">
             Éthique, hygiène et satisfaction client
@@ -118,7 +118,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           </p>
         </div>
 
-        <div className="bg-white rounded-[16px] border border-[#E6DEC8] p-5 sm:p-6 space-y-2">
+        <div className="bg-white rounded-[16px] border border-[#E6DEC8] hover:border-[#E31E24]/35 hover:-translate-y-1 hover:shadow-[0_12px_26px_rgba(42,24,16,0.08)] transition-all duration-200 p-5 sm:p-6 space-y-2">
           <span className="text-xs font-bold text-[#E31E24]">03. Nos Unités à Douala</span>
           <h2 className="text-base sm:text-lg font-bold text-[#212529] font-sans">
             Proximité dans les quartiers de Douala
@@ -145,11 +145,13 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
           {BRAND_CONFIG.values.map((val, index) => (
             <article
               key={val.id}
-              className="bg-white rounded-[14px] border border-[#E6DEC8] p-5 space-y-2"
+              className="group bg-white rounded-[14px] border border-[#E6DEC8] hover:border-[#E31E24]/40 hover:-translate-y-1 hover:shadow-[0_12px_26px_rgba(42,24,16,0.08)] transition-all duration-200 p-5 space-y-2"
             >
               <div className="flex items-center justify-between">
-                <h3 className="text-base font-bold text-[#212529] font-sans">{val.title}</h3>
-                <span className="text-xs font-bold text-[#868E96] tabular-price">
+                <h3 className="text-base font-bold text-[#212529] group-hover:text-[#E31E24] transition-colors font-sans">
+                  {val.title}
+                </h3>
+                <span className="text-xs font-bold text-[#868E96] group-hover:text-[#E31E24] transition-colors tabular-price">
                   0{index + 1}
                 </span>
               </div>
@@ -190,24 +192,26 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               return (
                 <div
                   key={item.id}
-                  className={`rounded-[14px] border transition-colors bg-white overflow-hidden ${
-                    isOpen ? 'border-[#E31E24]/45 shadow-xs' : 'border-[#E6DEC8]'
+                  className={`rounded-[14px] border transition-all duration-200 bg-white overflow-hidden ${
+                    isOpen
+                      ? 'border-[#E31E24]/45 shadow-sm'
+                      : 'border-[#E6DEC8] hover:border-[#E31E24]/35 hover:shadow-xs'
                   }`}
                 >
                   <button
                     type="button"
                     aria-expanded={isOpen}
                     onClick={() => setOpenFaqId(isOpen ? null : item.id)}
-                    className="w-full px-4 sm:px-6 py-4 flex items-center justify-between gap-4 text-left focus-visible:outline-2 focus-visible:outline-[#E31E24]"
+                    className="group w-full px-4 sm:px-6 py-4 flex items-center justify-between gap-4 text-left focus-visible:outline-2 focus-visible:outline-[#E31E24]"
                   >
-                    <span className="text-xs sm:text-sm font-bold text-[#212529] leading-snug">
+                    <span className="text-xs sm:text-sm font-bold text-[#212529] group-hover:text-[#E31E24] transition-colors leading-snug">
                       {item.question}
                     </span>
                     <span
-                      className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${
+                      className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-200 ${
                         isOpen
                           ? 'bg-[#E31E24] text-white rotate-180'
-                          : 'bg-[#FAF7F2] text-[#5C534C]'
+                          : 'bg-[#FAF7F2] text-[#5C534C] group-hover:bg-[#FFF4F6] group-hover:text-[#E31E24]'
                       }`}
                       aria-hidden="true"
                     >

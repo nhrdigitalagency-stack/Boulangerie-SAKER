@@ -18,6 +18,7 @@ import { CartSidebar } from './components/CartSidebar';
 import { Footer } from './components/Footer';
 import { AdminLoginModal } from './components/AdminLoginModal';
 import { SitePopupBanner } from './components/SitePopupBanner';
+import { BrandSplashLoader } from './components/BrandSplashLoader';
 import { HomePage } from './pages/HomePage';
 import { ShopPage } from './pages/ShopPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
@@ -139,6 +140,8 @@ const StorefrontShell: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#FAF7F2] text-[#212529]">
+      {/* Préchargeur naturel du logo SAKER à l'ouverture (<= 3 secondes) */}
+      <BrandSplashLoader />
       {/* Google Maps Platform Quota Exceeded Sticky Warning Banner */}
       {gmpQuotaExceeded && (
         <div className="bg-amber-50 border-b border-amber-200 text-amber-900 px-4 py-2.5 text-xs md:text-sm text-center sticky top-0 z-50 shadow-sm">
@@ -178,14 +181,12 @@ const StorefrontShell: React.FC = () => {
             onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
             onOpenCart={() => setIsCartDrawerOpen(true)}
             onOpenFavorites={() => handleNavigate('shop', 'all', true)}
-            onNavigateHome={() => handleNavigate('home')}
+            onNavigate={handleNavigate}
             activePage={activePage}
+            selectedCategory={selectedCategory}
           />
 
-          <main
-            id="main-content"
-            className="flex-1 px-4 sm:px-6 lg:px-8 xl:px-10 pt-5 sm:pt-7 w-full"
-          >
+          <main id="main-content" className="flex-1 w-full">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activePage === 'product' ? `product-${selectedProduct.id}` : activePage}
@@ -194,51 +195,53 @@ const StorefrontShell: React.FC = () => {
                 exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
                 transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
               >
-                {activePage === 'home' && (
+                {activePage === 'home' ? (
                   <HomePage
                     onNavigate={(page, catSlug) => handleNavigate(page, catSlug || 'all', false)}
                     onSelectProduct={handleSelectProduct}
                     onSelectServiceForQuote={handleSelectServiceForQuote}
                   />
+                ) : (
+                  <div className="w-full px-4 sm:px-6 lg:px-10 xl:px-14 pt-6 sm:pt-8">
+                    {activePage === 'shop' && (
+                      <ShopPage
+                        selectedCategory={selectedCategory}
+                        onSelectCategory={(cat) => setSelectedCategory(cat)}
+                        searchQuery={searchQuery}
+                        onSearchChange={setSearchQuery}
+                        onlyFavorites={onlyFavorites}
+                        onToggleOnlyFavorites={setOnlyFavorites}
+                        onSelectProduct={handleSelectProduct}
+                      />
+                    )}
+
+                    {activePage === 'product' && (
+                      <ProductDetailPage
+                        product={selectedProduct}
+                        onBackToShop={() => handleNavigate('shop', selectedCategory, onlyFavorites)}
+                        onSelectCategory={(catSlug) => handleNavigate('shop', catSlug, false)}
+                        onSelectProduct={handleSelectProduct}
+                        onProceedToCheckout={() => handleNavigate('checkout')}
+                      />
+                    )}
+
+                    {activePage === 'services' && (
+                      <ServicesPage initialServiceId={selectedServiceId} />
+                    )}
+
+                    {activePage === 'about' && (
+                      <AboutPage onNavigate={(p) => handleNavigate(p)} />
+                    )}
+
+                    {activePage === 'contact' && <ContactPage />}
+
+                    {activePage === 'checkout' && (
+                      <CheckoutPage onBackToShop={() => handleNavigate('shop', 'all', false)} />
+                    )}
+
+                    {activePage === 'audit' && <AuditPage />}
+                  </div>
                 )}
-
-                {activePage === 'shop' && (
-                  <ShopPage
-                    selectedCategory={selectedCategory}
-                    onSelectCategory={(cat) => setSelectedCategory(cat)}
-                    searchQuery={searchQuery}
-                    onSearchChange={setSearchQuery}
-                    onlyFavorites={onlyFavorites}
-                    onToggleOnlyFavorites={setOnlyFavorites}
-                    onSelectProduct={handleSelectProduct}
-                  />
-                )}
-
-                {activePage === 'product' && (
-                  <ProductDetailPage
-                    product={selectedProduct}
-                    onBackToShop={() => handleNavigate('shop', selectedCategory, onlyFavorites)}
-                    onSelectCategory={(catSlug) => handleNavigate('shop', catSlug, false)}
-                    onSelectProduct={handleSelectProduct}
-                    onProceedToCheckout={() => handleNavigate('checkout')}
-                  />
-                )}
-
-                {activePage === 'services' && (
-                  <ServicesPage initialServiceId={selectedServiceId} />
-                )}
-
-                {activePage === 'about' && (
-                  <AboutPage onNavigate={(p) => handleNavigate(p)} />
-                )}
-
-                {activePage === 'contact' && <ContactPage />}
-
-                {activePage === 'checkout' && (
-                  <CheckoutPage onBackToShop={() => handleNavigate('shop', 'all', false)} />
-                )}
-
-                {activePage === 'audit' && <AuditPage />}
               </motion.div>
             </AnimatePresence>
           </main>
