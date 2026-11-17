@@ -8,8 +8,8 @@ import {
   MapPin,
   Phone,
   ShoppingBag,
-  Sparkles,
   Store,
+  UtensilsCrossed,
   X,
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
@@ -188,7 +188,7 @@ export const LeftNavigation: React.FC<LeftNavigationProps> = ({
                   : 'text-[#212529] hover:bg-[#F5EFE6] hover:translate-x-0.5'
               }`}
             >
-              <Sparkles className="w-4 h-4 shrink-0" aria-hidden="true" />
+              <UtensilsCrossed className="w-4 h-4 shrink-0" aria-hidden="true" />
               <span>Nos services</span>
             </button>
 

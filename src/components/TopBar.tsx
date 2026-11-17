@@ -33,7 +33,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-30 bg-[#FAF7F2]/95 backdrop-blur-xs border-b border-[#E6DEC8] px-3.5 sm:px-6 py-2.5 sm:py-3">
+    <header className="sticky top-0 z-30 bg-[#FAF7F2]/95 backdrop-blur-xs border-b border-[#E6DEC8] px-4 sm:px-6 lg:px-8 xl:px-10 py-2.5 sm:py-3">
       <div className="flex flex-wrap md:flex-nowrap items-center justify-between gap-2.5 sm:gap-4">
         {/* Zone 1 : Bouton Menu + Logo sur Mobile/Tablette */}
         <div className="flex items-center gap-2 lg:hidden shrink-0">
@@ -65,7 +65,7 @@ export const TopBar: React.FC<TopBarProps> = ({
           onSubmit={handleSubmit}
           role="search"
           aria-label="Rechercher un produit dans le catalogue SAKER"
-          className="order-3 md:order-2 w-full md:flex-1 md:max-w-xl"
+          className="order-3 md:order-2 w-full md:flex-1 md:max-w-2xl"
         >
           <div className="relative flex items-center">
             <label htmlFor="saker-global-search" className="sr-only">

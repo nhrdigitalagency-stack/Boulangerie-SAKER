@@ -14,9 +14,9 @@ import {
   Megaphone,
   Package,
   Plus,
+  Save,
   Search,
   ShieldCheck,
-  Sparkles,
   Trash2,
   Upload,
   X,
@@ -647,7 +647,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
           </div>
         )}
 
-        <main className="flex-1 p-4 sm:p-8 max-w-6xl w-full mx-auto space-y-6">
+        <main className="flex-1 p-4 sm:p-6 lg:p-10 w-full space-y-6">
           {isLoadingOverview ? (
             <div className="bg-white rounded-[16px] border border-[#E6DEC8] p-12 flex flex-col items-center justify-center gap-3 text-sm text-[#5C534C]">
               <Loader2 className="w-6 h-6 text-[#E31E24] animate-spin" aria-hidden="true" />
@@ -1040,7 +1040,7 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({
                       {isSavingContent ? (
                         <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
                       ) : (
-                        <Sparkles className="w-4 h-4" aria-hidden="true" />
+                        <Save className="w-4 h-4" aria-hidden="true" />
                       )}
                       <span>Enregistrer et publier</span>
                     </button>

@@ -4,8 +4,8 @@ import {
   Home,
   MapPin,
   ShoppingBag,
-  Sparkles,
   Store,
+  UtensilsCrossed,
   X,
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
@@ -184,7 +184,7 @@ const StorefrontShell: React.FC = () => {
 
           <main
             id="main-content"
-            className="flex-1 px-3.5 sm:px-6 lg:px-8 pt-4 sm:pt-6 max-w-6xl w-full mx-auto"
+            className="flex-1 px-4 sm:px-6 lg:px-8 xl:px-10 pt-5 sm:pt-7 w-full"
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -296,7 +296,7 @@ const StorefrontShell: React.FC = () => {
               activePage === 'services' ? 'text-[#E31E24]' : 'text-[#5C534C] hover:text-[#212529]'
             }`}
           >
-            <Sparkles className="w-4 h-4 mb-0.5" aria-hidden="true" />
+            <UtensilsCrossed className="w-4 h-4 mb-0.5" aria-hidden="true" />
             <span>Services</span>
           </button>
 

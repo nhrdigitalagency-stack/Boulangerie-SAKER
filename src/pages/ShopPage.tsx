@@ -306,7 +306,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
           <div
             key="loading-shop-skeletons"
             aria-label="Chargement du catalogue Boulangerie SAKER"
-            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-2.5 sm:gap-5"
+            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5"
           >
             {[0, 1, 2, 3, 4, 5, 6, 7].map((idx) => (
               <ProductCardSkeleton key={idx} />
@@ -349,7 +349,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
             animate={{ opacity: 1, y: 0 }}
             exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -6 }}
             transition={{ duration: 0.22 }}
-            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-2.5 sm:gap-5"
+            className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5"
           >
             {filteredProducts.map((product) => (
               <ProductCard

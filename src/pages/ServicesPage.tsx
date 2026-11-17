@@ -7,8 +7,8 @@ import {
   Copy,
   Info,
   Phone,
-  Sparkles,
   Users,
+  UtensilsCrossed,
 } from 'lucide-react';
 import { useSiteData } from '../context/SiteDataContext';
 import { ProductImage } from '../components/ProductImage';
@@ -103,7 +103,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ initialServiceId }) 
       {/* En-tête de la page Services */}
       <section className="bg-white rounded-[18px] border border-[#E6DEC8] p-6 sm:p-8 space-y-3">
         <div className="flex items-center gap-2 text-xs font-semibold text-[#E31E24]">
-          <Sparkles className="w-4 h-4 shrink-0" aria-hidden="true" />
+          <UtensilsCrossed className="w-4 h-4 shrink-0" aria-hidden="true" />
           <span>Services officiels Boulangerie SAKER à Douala</span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-bold text-[#212529]">

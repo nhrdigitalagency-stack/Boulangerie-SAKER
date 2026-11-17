@@ -10,8 +10,8 @@ import {
   MapPin,
   Phone,
   Plus,
-  Sparkles,
   Store,
+  UtensilsCrossed,
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { BRAND_CONFIG } from '../config/brand';
@@ -505,7 +505,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             <div
               key="home-products-skeleton"
               aria-label="Chargement des produits depuis Sanity"
-              className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-2.5 sm:gap-5"
+              className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5"
             >
               {[0, 1, 2, 3, 4, 5, 6, 7].map((idx) => (
                 <ProductCardSkeleton key={idx} />
@@ -518,7 +518,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               animate={{ opacity: 1, y: 0 }}
               exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -6 }}
               transition={{ duration: 0.22 }}
-              className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-2.5 sm:gap-5"
+              className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5"
             >
               {featuredProducts.map((product) => (
                 <ProductCard
@@ -589,7 +589,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 </div>
                 <div className="p-4 sm:p-5 space-y-2">
                   <div className="flex items-center gap-2 text-xs font-semibold text-[#E31E24]">
-                    <Sparkles className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+                    <UtensilsCrossed className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
                     <span>{srv.shortTitle}</span>
                   </div>
                   <h3 className="text-base font-bold text-[#212529] font-sans">{srv.title}</h3>

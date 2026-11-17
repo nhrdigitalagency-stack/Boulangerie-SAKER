@@ -14,7 +14,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
 
   return (
     <footer className="mt-14 border-t border-[#E6DEC8] bg-white text-[#212529]">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-10 py-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Colonne 1 : Marque & Histoire */}
           <div className="space-y-3">
