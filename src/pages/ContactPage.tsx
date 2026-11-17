@@ -109,7 +109,7 @@ export const ContactPage: React.FC = () => {
               </a>
             </div>
             <p className="text-[11px] text-[#5C534C]">
-              Assistance mentionnée sur la page Contact :{' '}
+              Ligne d’assistance :{' '}
               <a
                 href={`tel:+237${contactInfo.phoneAssistance.replace(/\D/g, '')}`}
                 className="font-semibold underline tabular-price"
@@ -139,7 +139,7 @@ export const ContactPage: React.FC = () => {
           <div className="p-4 sm:p-5 rounded-[14px] bg-[#FAF7F2] border border-[#E6DEC8] hover:border-[#E31E24]/35 hover:-translate-y-1 hover:shadow-[0_10px_22px_rgba(42,24,16,0.07)] transition-all duration-200 space-y-2">
             <div className="flex items-center gap-2 text-xs font-bold text-[#212529]">
               <Clock className="w-4 h-4 text-[#E31E24]" aria-hidden="true" />
-              <span>Horaires &amp; E-mail (à confirmer)</span>
+              <span>Horaires &amp; E-mail</span>
             </div>
             <p className="text-xs text-[#5C534C] leading-snug">
               {contactInfo.openingHours}
@@ -186,8 +186,8 @@ export const ContactPage: React.FC = () => {
             Annuaire téléphonique de nos agences à Douala
           </h2>
           <p className="text-xs sm:text-sm text-[#5C534C] mt-0.5">
-            Coordonnées téléphoniques par quartier relevées sur la page « Contactez-nous » du site
-            officiel.
+            Retrouvez les coordonnées téléphoniques directes de nos boulangeries et agences dans les
+            différents quartiers de Douala.
           </p>
         </div>
 

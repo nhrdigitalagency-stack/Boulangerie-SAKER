@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import {
   BookOpen,
   Croissant,
-  FileCheck2,
   Heart,
   Home,
   MapPin,
@@ -25,7 +24,6 @@ export type ActivePage =
   | 'about'
   | 'contact'
   | 'checkout'
-  | 'audit'
   | 'admin';
 
 interface LeftNavigationProps {
@@ -271,19 +269,6 @@ export const LeftNavigation: React.FC<LeftNavigationProps> = ({
               >
                 {totalQuantity}
               </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => handleNavClick('audit')}
-              className={`w-full flex items-center gap-3 px-3 py-2 rounded-[10px] text-[11px] font-medium transition-all whitespace-nowrap ${
-                activePage === 'audit'
-                  ? 'bg-[#2A1810] text-white'
-                  : 'text-[#5C534C] hover:bg-[#F5EFE6] hover:text-[#212529]'
-              }`}
-            >
-              <FileCheck2 className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
-              <span>Audit &amp; Migration SEO</span>
             </button>
           </div>
         </div>

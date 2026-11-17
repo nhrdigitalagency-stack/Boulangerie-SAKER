@@ -26,7 +26,6 @@ import { ServicesPage } from './pages/ServicesPage';
 import { AboutPage } from './pages/AboutPage';
 import { ContactPage } from './pages/ContactPage';
 import { CheckoutPage } from './pages/CheckoutPage';
-import { AuditPage } from './pages/AuditPage';
 import { AdminDashboardPage } from './pages/AdminDashboardPage';
 
 const StorefrontShell: React.FC = () => {
@@ -72,7 +71,6 @@ const StorefrontShell: React.FC = () => {
       about: 'À propos & Histoire depuis 1990 — Boulangerie SAKER',
       contact: 'Contact & Nos Agences à Douala — Boulangerie SAKER',
       checkout: 'Préparation de commande — Boulangerie SAKER',
-      audit: 'Audit Technique & Plan de Migration SEO — Boulangerie SAKER',
       admin: 'Administration Propriétaire — Boulangerie SAKER',
     };
     document.title = titles[activePage] || 'Boulangerie SAKER — Douala';
@@ -238,8 +236,6 @@ const StorefrontShell: React.FC = () => {
                     {activePage === 'checkout' && (
                       <CheckoutPage onBackToShop={() => handleNavigate('shop', 'all', false)} />
                     )}
-
-                    {activePage === 'audit' && <AuditPage />}
                   </div>
                 )}
               </motion.div>

@@ -34,7 +34,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
           {/* Colonne 2 : Catégories du catalogue */}
           <div>
             <h3 className="text-xs font-bold text-[#212529] tracking-wide mb-3 font-sans">
-              Catalogue vérifié
+              Notre catalogue
             </h3>
             <ul className="space-y-2 text-xs text-[#5C534C]">
               {categories.map((cat) => (

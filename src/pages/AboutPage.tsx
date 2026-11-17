@@ -5,7 +5,6 @@ import {
   BookOpen,
   ChevronDown,
   HelpCircle,
-  Info,
   MapPin,
   Quote,
   ShieldCheck,
@@ -61,12 +60,6 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
               <p className="text-xs text-[#5C534C] leading-relaxed">{m.text}</p>
             </div>
           ))}
-        </div>
-
-        {/* Note de rigueur éditoriale sur les données chiffrées du texte source */}
-        <div className="p-4 rounded-[12px] bg-[#FEF8E8] border border-[#D9920B]/35 flex items-start gap-3 text-xs text-[#5C534C]">
-          <Info className="w-4 h-4 text-[#B45309] shrink-0 mt-0.5" aria-hidden="true" />
-          <p className="leading-relaxed">{BRAND_CONFIG.history.historicalMetricsNote}</p>
         </div>
       </section>
 

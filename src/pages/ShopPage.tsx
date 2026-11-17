@@ -121,7 +121,7 @@ export const ShopPage: React.FC<ShopPageProps> = ({
                 ? 'Retrouvez ici les pains, viennoiseries et pâtisseries que vous avez enregistrés.'
                 : activeCategoryInfo
                 ? activeCategoryInfo.description
-                : 'Explorez l’ensemble des produits relevés sur le catalogue officiel de la Boulangerie SAKER à Douala.'}
+                : 'Explorez l’ensemble des pains, viennoiseries, pâtisseries et spécialités préparés par la Boulangerie SAKER à Douala.'}
             </p>
           </div>
 
@@ -362,15 +362,12 @@ export const ShopPage: React.FC<ShopPageProps> = ({
         )}
       </AnimatePresence>
 
-      {/* Note de transparence sur le catalogue */}
+      {/* Note de disponibilité en boutique */}
       <div className="p-4 rounded-[12px] bg-white border border-[#E6DEC8] text-xs text-[#5C534C] leading-relaxed">
-        <strong className="text-[#212529]">Note sur la disponibilité et les formats :</strong> Les
-        prix affichés en FCFA sont ceux relevés sur le catalogue officiel{' '}
-        <span className="font-mono text-[11px]">boulangeriesaker.com</span>. Les deux références{' '}
-        <em>« Entremet Vanille fraise » (8 000 FCFA)</em> et{' '}
-        <em>« Entremet Vanille &amp; fraise » (15 000 FCFA)</em> correspondent à deux fiches
-        distinctes du catalogue source et sont conservées séparément. La disponibilité en temps réel
-        est confirmée par la boulangerie lors de la validation de votre commande.
+        <strong className="text-[#212529]">Disponibilité &amp; formats sur mesure :</strong> Les prix
+        sont affichés en FCFA (XAF). Nos deux formats d’entremet Vanille fraise (8 000 FCFA et
+        15 000 FCFA) correspondent à des gabarits distincts. La disponibilité en temps réel est
+        confirmée par nos équipes lors de la validation de votre commande.
       </div>
     </div>
   );
