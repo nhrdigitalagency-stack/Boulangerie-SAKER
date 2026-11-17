@@ -10,7 +10,9 @@ import {
   Plus,
   ShoppingBag,
 } from 'lucide-react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { formatPriceFCFA, Product } from '../data/catalog';
+import { SAKER_DURATIONS, SAKER_EASE, SAKER_MOTION } from '../config/motion';
 import { useSiteData } from '../context/SiteDataContext';
 import { useStore } from '../context/StoreContext';
 import { ProductImage } from '../components/ProductImage';
@@ -34,6 +36,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 }) => {
   const { addToCart, toggleFavorite, isFavorite } = useStore();
   const { products } = useSiteData();
+  const shouldReduceMotion = useReducedMotion();
   const [quantity, setQuantity] = useState<number>(1);
   const [cakeMessage, setCakeMessage] = useState<string>('');
   const [desiredDate, setDesiredDate] = useState<string>('');
@@ -124,7 +127,12 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start">
           {/* Colonne Visuel (Sticky sur grand écran) */}
           <div className="lg:col-span-6 space-y-3">
-            <div className="aspect-square w-full rounded-[14px] bg-[#F5EFE6] border border-[#E6DEC8] overflow-hidden relative">
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0.9, scale: 1.03 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: SAKER_DURATIONS.editorial, ease: SAKER_EASE }}
+              className="aspect-square w-full rounded-[14px] bg-[#F5EFE6] border border-[#E6DEC8] overflow-hidden relative"
+            >
               <ProductImage
                 src={product.image}
                 alt={product.name}
@@ -132,7 +140,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 priority
                 className="w-full h-full p-6 sm:p-10"
               />
-            </div>
+            </motion.div>
             <p className="text-[11px] text-[#868E96] text-center">
               Photographie issue du catalogue officiel Boulangerie SAKER (réf. #{product.id})
             </p>
@@ -277,67 +285,95 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               {/* Sélecteur de quantité + Boutons d'action */}
               <div className="flex flex-wrap items-center gap-3">
                 <div className="inline-flex items-center rounded-[10px] border border-[#E6DEC8] bg-[#FAF7F2] h-11">
-                  <button
+                  <motion.button
                     type="button"
+                    whileTap={shouldReduceMotion ? undefined : { scale: 0.9 }}
                     onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                     aria-label="Diminuer la quantité"
                     className="w-10 h-full flex items-center justify-center text-[#212529] hover:bg-[#EFE9DC] rounded-l-[10px] transition-colors"
                   >
                     <Minus className="w-4 h-4" aria-hidden="true" />
-                  </button>
+                  </motion.button>
                   <span
                     className="px-4 text-sm font-bold text-[#212529] tabular-price select-none"
                     aria-label={`Quantité sélectionnée : ${quantity}`}
                   >
                     {quantity}
                   </span>
-                  <button
+                  <motion.button
                     type="button"
+                    whileTap={shouldReduceMotion ? undefined : { scale: 0.9 }}
                     onClick={() => setQuantity((q) => q + 1)}
                     aria-label="Augmenter la quantité"
                     className="w-10 h-full flex items-center justify-center text-[#212529] hover:bg-[#EFE9DC] rounded-r-[10px] transition-colors"
                   >
                     <Plus className="w-4 h-4" aria-hidden="true" />
-                  </button>
+                  </motion.button>
                 </div>
 
-                <button
+                <motion.button
                   type="submit"
-                  className={`flex-1 min-w-[200px] h-11 px-5 rounded-[10px] text-xs sm:text-sm font-semibold text-white flex items-center justify-center gap-2 transition-colors shadow-xs ${
+                  whileHover={
+                    shouldReduceMotion
+                      ? undefined
+                      : { scale: SAKER_MOTION.buttonHoverScale, y: -1 }
+                  }
+                  whileTap={shouldReduceMotion ? undefined : { scale: SAKER_MOTION.buttonTapScale }}
+                  transition={{ duration: SAKER_DURATIONS.fast, ease: SAKER_EASE }}
+                  className={`flex-1 min-w-[200px] h-11 px-5 rounded-[10px] text-xs sm:text-sm font-semibold text-white flex items-center justify-center gap-2 transition-colors shadow-xs hover:shadow-[0_8px_20px_rgba(227,30,36,0.28)] ${
                     addedFeedback
-                      ? 'bg-[#099268]'
+                      ? 'bg-[#099268] shadow-[0_6px_16px_rgba(9,146,104,0.28)]'
                       : 'bg-[#E31E24] hover:bg-[#C8161C]'
                   }`}
                 >
-                  {addedFeedback ? (
-                    <>
-                      <Check className="w-4 h-4 shrink-0" aria-hidden="true" />
-                      <span>Ajouté au panier ({formatPriceFCFA(product.price * quantity)})</span>
-                    </>
-                  ) : (
-                    <>
-                      <ShoppingBag className="w-4 h-4 shrink-0" aria-hidden="true" />
-                      <span>
-                        Ajouter au panier · {formatPriceFCFA(product.price * quantity)}
-                      </span>
-                    </>
-                  )}
-                </button>
+                  <AnimatePresence mode="wait" initial={false}>
+                    {addedFeedback ? (
+                      <motion.span
+                        key="detail-added"
+                        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -4 }}
+                        transition={{ duration: SAKER_DURATIONS.fast, ease: SAKER_EASE }}
+                        className="inline-flex items-center gap-2"
+                      >
+                        <Check className="w-4 h-4 shrink-0" aria-hidden="true" />
+                        <span>Ajouté au panier ({formatPriceFCFA(product.price * quantity)})</span>
+                      </motion.span>
+                    ) : (
+                      <motion.span
+                        key="detail-add"
+                        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 4 }}
+                        transition={{ duration: SAKER_DURATIONS.fast, ease: SAKER_EASE }}
+                        className="inline-flex items-center gap-2"
+                      >
+                        <ShoppingBag className="w-4 h-4 shrink-0" aria-hidden="true" />
+                        <span>
+                          Ajouter au panier · {formatPriceFCFA(product.price * quantity)}
+                        </span>
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </motion.button>
 
-                <button
+                <motion.button
                   type="button"
+                  whileHover={shouldReduceMotion ? undefined : { scale: 1.03 }}
+                  whileTap={shouldReduceMotion ? undefined : { scale: SAKER_MOTION.buttonTapScale }}
+                  transition={{ duration: SAKER_DURATIONS.fast, ease: SAKER_EASE }}
                   onClick={() => toggleFavorite(product.id)}
                   aria-label={fav ? 'Retirer des favoris' : 'Ajouter aux favoris'}
                   aria-pressed={fav}
                   className={`h-11 px-3.5 rounded-[10px] border flex items-center justify-center gap-1.5 text-xs font-semibold transition-colors ${
                     fav
                       ? 'bg-[#FFF4F6] text-[#E31E24] border-[#E31E24]/30'
-                      : 'bg-white text-[#5C534C] border-[#E6DEC8] hover:text-[#212529]'
+                      : 'bg-white text-[#5C534C] border-[#E6DEC8] hover:text-[#212529] hover:border-[#E31E24]/35'
                   }`}
                 >
-                  <Heart className={`w-4 h-4 ${fav ? 'fill-[#E31E24]' : ''}`} aria-hidden="true" />
+                  <Heart className={`w-4 h-4 transition-transform ${fav ? 'fill-[#E31E24] scale-110' : ''}`} aria-hidden="true" />
                   <span className="hidden sm:inline">{fav ? 'Favori' : 'Ajouter aux favoris'}</span>
-                </button>
+                </motion.button>
               </div>
 
               {addedFeedback && (

@@ -10,6 +10,8 @@ import {
   Users,
   UtensilsCrossed,
 } from 'lucide-react';
+import { motion, useReducedMotion } from 'motion/react';
+import { getSectionRevealProps } from '../config/motion';
 import { useSiteData } from '../context/SiteDataContext';
 import { ProductImage } from '../components/ProductImage';
 
@@ -19,6 +21,7 @@ interface ServicesPageProps {
 
 export const ServicesPage: React.FC<ServicesPageProps> = ({ initialServiceId }) => {
   const { siteContent } = useSiteData();
+  const shouldReduceMotion = useReducedMotion();
   const servicesList = siteContent.servicesPage.services;
 
   const [selectedServiceId, setSelectedServiceId] = useState<string>(
@@ -185,7 +188,8 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ initialServiceId }) 
       </section>
 
       {/* Formulaire de demande de devis / informations */}
-      <section
+      <motion.section
+        {...getSectionRevealProps(shouldReduceMotion)}
         ref={formRef}
         aria-labelledby="service-quote-heading"
         className="bg-white rounded-[18px] border border-[#E6DEC8] p-6 sm:p-8"
@@ -454,7 +458,7 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({ initialServiceId }) 
             )}
           </div>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 };

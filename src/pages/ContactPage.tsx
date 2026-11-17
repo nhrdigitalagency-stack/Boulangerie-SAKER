@@ -10,11 +10,14 @@ import {
   MapPin,
   Phone,
 } from 'lucide-react';
+import { motion, useReducedMotion } from 'motion/react';
+import { getSectionRevealProps } from '../config/motion';
 import { useSiteData } from '../context/SiteDataContext';
 import { AgenciesMapSection } from '../components/AgenciesMap';
 
 export const ContactPage: React.FC = () => {
   const { siteContent } = useSiteData();
+  const shouldReduceMotion = useReducedMotion();
   const contactInfo = siteContent.contactPage;
 
   const [selectedAgencyId, setSelectedAgencyId] = useState<string | null>('siege-akwa');
@@ -180,7 +183,11 @@ export const ContactPage: React.FC = () => {
       </section>
 
       {/* Grille complète des Agences SAKER à Douala */}
-      <section aria-labelledby="agencies-heading" className="space-y-4">
+      <motion.section
+        {...getSectionRevealProps(shouldReduceMotion)}
+        aria-labelledby="agencies-heading"
+        className="space-y-4"
+      >
         <div>
           <h2 id="agencies-heading" className="text-xl sm:text-2xl font-bold text-[#212529]">
             Annuaire téléphonique de nos agences à Douala
@@ -240,7 +247,7 @@ export const ContactPage: React.FC = () => {
             );
           })}
         </div>
-      </section>
+      </motion.section>
 
       {/* Formulaire de contact */}
       <section className="bg-white rounded-[18px] border border-[#E6DEC8] p-5 sm:p-8">

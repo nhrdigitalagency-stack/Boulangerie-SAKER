@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Check, Eye, Heart, Plus, Star } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { formatPriceFCFA, Product } from '../data/catalog';
+import { SAKER_DURATIONS, SAKER_EASE, SAKER_MOTION } from '../config/motion';
 import { getProductReviewStats } from '../data/reviews';
 import { useStore } from '../context/StoreContext';
 import { ProductImage } from './ProductImage';
@@ -45,9 +46,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       layout={!shouldReduceMotion}
       initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={shouldReduceMotion ? undefined : { y: -5 }}
-      transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative bg-white rounded-[14px] border border-[#E6DEC8] hover:border-[#E31E24]/35 transition-all duration-200 flex flex-col h-full overflow-hidden focus-within:ring-2 focus-within:ring-[#E31E24] shadow-[0_2px_12px_rgba(42,24,16,0.045)] hover:shadow-[0_16px_34px_rgba(42,24,16,0.10)]"
+      whileHover={
+        shouldReduceMotion
+          ? undefined
+          : { y: SAKER_MOTION.cardHoverLift, scale: SAKER_MOTION.cardHoverScale }
+      }
+      transition={{ duration: SAKER_DURATIONS.standard, ease: SAKER_EASE }}
+      className="group relative bg-white rounded-[14px] border border-[#E6DEC8] hover:border-[#E31E24]/35 transition-[border-color,box-shadow] duration-200 flex flex-col h-full overflow-hidden focus-within:ring-2 focus-within:ring-[#E31E24] shadow-[0_2px_12px_rgba(42,24,16,0.045)] hover:shadow-[0_18px_36px_rgba(42,24,16,0.11)]"
     >
       {/* Zone Image cliquable avec effet de zoom doux et aperçu */}
       <div className="relative aspect-[4/3] w-full bg-gradient-to-b from-[#F8F3EB] to-[#F2E9DC] overflow-hidden">
@@ -63,7 +68,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             category={product.category}
             priority={priority}
             className="w-full h-full p-2.5 sm:p-4"
-            imgClassName="transition-transform duration-500 ease-out group-hover:scale-[1.08]"
+            imgClassName="transition-transform duration-300 ease-out group-hover:scale-[1.03]"
           />
 
           {/* Indication discrète au survol sur grand écran */}
@@ -139,12 +144,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
           <motion.button
             type="button"
-            whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
+            whileHover={
+              shouldReduceMotion
+                ? undefined
+                : { scale: SAKER_MOTION.buttonHoverScale, y: -1 }
+            }
+            whileTap={shouldReduceMotion ? undefined : { scale: SAKER_MOTION.buttonTapScale }}
+            transition={{ duration: SAKER_DURATIONS.fast, ease: SAKER_EASE }}
             onClick={handleAdd}
             className={`w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-[10px] text-xs font-semibold transition-colors whitespace-nowrap shrink-0 min-h-[38px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E31E24] ${
               justAdded
-                ? 'bg-[#099268] text-white'
-                : 'bg-[#E31E24] hover:bg-[#C8161C] text-white shadow-xs'
+                ? 'bg-[#099268] text-white shadow-[0_4px_12px_rgba(9,146,104,0.28)]'
+                : 'bg-[#E31E24] hover:bg-[#C8161C] text-white shadow-xs hover:shadow-[0_6px_16px_rgba(227,30,36,0.28)]'
             }`}
             aria-label={`Ajouter ${product.name} au panier`}
           >
@@ -152,10 +163,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               {justAdded ? (
                 <motion.span
                   key="added"
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -4 }}
-                  transition={{ duration: 0.15 }}
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 4, scale: 0.92 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -4, scale: 0.92 }}
+                  transition={{ duration: SAKER_DURATIONS.fast, ease: SAKER_EASE }}
                   className="inline-flex items-center gap-1.5"
                 >
                   <Check className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
@@ -164,10 +175,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               ) : (
                 <motion.span
                   key="add"
-                  initial={{ opacity: 0, y: -4 }}
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -4 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 4 }}
-                  transition={{ duration: 0.15 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 4 }}
+                  transition={{ duration: SAKER_DURATIONS.fast, ease: SAKER_EASE }}
                   className="inline-flex items-center gap-1.5"
                 >
                   <Plus className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />

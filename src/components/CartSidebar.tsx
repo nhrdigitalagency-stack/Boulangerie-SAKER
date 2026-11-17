@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ArrowRight, Minus, Plus, ShoppingBag, Trash2, X } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { SAKER_DURATIONS, SAKER_EASE, SAKER_MOTION } from '../config/motion';
 import { useStore } from '../context/StoreContext';
 import { useSiteData } from '../context/SiteDataContext';
 import { formatPriceFCFA, Product } from '../data/catalog';
@@ -25,6 +26,8 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
     useStore();
   const { products } = useSiteData();
   const shouldReduceMotion = useReducedMotion();
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -35,6 +38,24 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isDrawerOpen, onCloseDrawer]);
+
+  // Verrouillage du défilement de fond et gestion du focus modal à l'ouverture/fermeture
+  useEffect(() => {
+    if (isDrawerOpen) {
+      previousFocusRef.current = document.activeElement as HTMLElement | null;
+      const previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      const focusTimer = window.setTimeout(() => {
+        closeButtonRef.current?.focus();
+      }, 60);
+      return () => {
+        window.clearTimeout(focusTimer);
+        document.body.style.overflow = previousOverflow;
+        previousFocusRef.current?.focus?.();
+      };
+    }
+    return undefined;
+  }, [isDrawerOpen]);
 
   // Suggestions rapides de produits emblématiques SAKER non présents dans le panier
   const quickSuggestions = React.useMemo(() => {
@@ -73,6 +94,7 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
           )}
           {isMobileDrawer && (
             <button
+              ref={closeButtonRef}
               type="button"
               onClick={onCloseDrawer}
               aria-label="Fermer le panier"
@@ -294,12 +316,14 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
 
             <motion.button
               type="button"
-              whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+              whileHover={shouldReduceMotion ? undefined : { scale: 1.015, y: -1 }}
+              whileTap={shouldReduceMotion ? undefined : { scale: SAKER_MOTION.buttonTapScale }}
+              transition={{ duration: SAKER_DURATIONS.fast, ease: SAKER_EASE }}
               onClick={() => {
                 onProceedToCheckout();
                 if (isMobileDrawer) onCloseDrawer();
               }}
-              className="w-full py-3 px-4 rounded-[10px] bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-colors shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E31E24]"
+              className="w-full py-3 px-4 rounded-[10px] bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 transition-colors shadow-xs hover:shadow-[0_6px_16px_rgba(227,30,36,0.28)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E31E24]"
             >
               <span>Préparer ma commande ({totalQuantity})</span>
               <ArrowRight className="w-4 h-4 shrink-0" aria-hidden="true" />
@@ -325,7 +349,7 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
               initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: SAKER_DURATIONS.drawer, ease: SAKER_EASE }}
               className="fixed inset-0 bg-black/50"
               onClick={onCloseDrawer}
               aria-hidden="true"
@@ -334,7 +358,7 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
               initial={shouldReduceMotion ? { x: 0 } : { x: '100%' }}
               animate={{ x: 0 }}
               exit={shouldReduceMotion ? { opacity: 0 } : { x: '100%' }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: SAKER_DURATIONS.drawer, ease: SAKER_EASE }}
               className="relative z-10 w-full max-w-[380px] h-full bg-white shadow-2xl flex flex-col"
             >
               {renderCartContent(true)}

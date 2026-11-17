@@ -15,6 +15,12 @@ import {
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { BRAND_CONFIG } from '../config/brand';
+import {
+  getSectionRevealProps,
+  SAKER_DURATIONS,
+  SAKER_EASE,
+  SAKER_MOTION,
+} from '../config/motion';
 import { formatPriceFCFA, Product } from '../data/catalog';
 import { useSiteData } from '../context/SiteDataContext';
 import { useStore } from '../context/StoreContext';
@@ -180,28 +186,67 @@ export const HomePage: React.FC<HomePageProps> = ({
             {/* Colonne éditoriale */}
             <div className="lg:col-span-7 px-4 sm:px-6 lg:px-10 xl:px-14 py-8 sm:py-10 lg:py-12 flex flex-col justify-between gap-8">
               <div className="space-y-4 sm:space-y-5 my-auto">
-                <div className="inline-flex items-center gap-2 text-xs text-[#F5B316] font-semibold tracking-wide">
+                <motion.div
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: SAKER_DURATIONS.editorial, ease: SAKER_EASE }}
+                  className="inline-flex items-center gap-2 text-xs text-[#F5B316] font-semibold tracking-wide"
+                >
                   <Croissant className="w-4 h-4 shrink-0" aria-hidden="true" />
                   <span>{currentHero.badge}</span>
-                </div>
+                </motion.div>
 
-                <h1 className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-bold leading-[1.12] text-white max-w-3xl">
+                <motion.h1
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: SAKER_DURATIONS.editorial,
+                    delay: 0.05,
+                    ease: SAKER_EASE,
+                  }}
+                  className="text-3xl sm:text-4xl lg:text-[46px] xl:text-[52px] font-bold leading-[1.12] text-white max-w-3xl"
+                >
                   {currentHero.title}
-                </h1>
+                </motion.h1>
 
-                <p className="text-sm sm:text-base lg:text-lg text-[#EAE0D5] leading-relaxed max-w-2xl">
+                <motion.p
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: SAKER_DURATIONS.editorial,
+                    delay: 0.12,
+                    ease: SAKER_EASE,
+                  }}
+                  className="text-sm sm:text-base lg:text-lg text-[#EAE0D5] leading-relaxed max-w-2xl"
+                >
                   {currentHero.subtitle}
-                </p>
+                </motion.p>
 
-                <div className="pt-2 flex flex-wrap items-center gap-3">
+                <motion.div
+                  initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: SAKER_DURATIONS.editorial,
+                    delay: 0.18,
+                    ease: SAKER_EASE,
+                  }}
+                  className="pt-2 flex flex-wrap items-center gap-3"
+                >
                   <motion.button
                     type="button"
-                    whileHover={shouldReduceMotion ? undefined : { y: -2 }}
-                    whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
+                    whileHover={
+                      shouldReduceMotion
+                        ? undefined
+                        : { scale: SAKER_MOTION.buttonHoverScale, y: -2 }
+                    }
+                    whileTap={
+                      shouldReduceMotion ? undefined : { scale: SAKER_MOTION.buttonTapScale }
+                    }
+                    transition={{ duration: SAKER_DURATIONS.fast, ease: SAKER_EASE }}
                     onClick={() => onNavigate('shop', currentHero.ctaCategory)}
-                    className="group inline-flex items-center gap-2 px-5 sm:px-6 py-3.5 rounded-[10px] bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs sm:text-sm font-semibold transition-all whitespace-nowrap shadow-md hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F5B316]"
+                    className="group inline-flex items-center gap-2 px-5 sm:px-6 py-3.5 rounded-[10px] bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap shadow-md hover:shadow-[0_10px_24px_rgba(227,30,36,0.35)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F5B316]"
                   >
-                    <span>{currentHero.ctaPrimaryLabel}</span>
+                    <span>Découvrir nos produits</span>
                     <ArrowRight
                       className="w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1"
                       aria-hidden="true"
@@ -210,12 +255,19 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                   <motion.button
                     type="button"
-                    whileHover={shouldReduceMotion ? undefined : { y: -2 }}
-                    whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
-                    onClick={() => onNavigate('shop', 'all')}
-                    className="inline-flex items-center gap-2 px-5 sm:px-6 py-3.5 rounded-[10px] bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs sm:text-sm font-semibold transition-all whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F5B316]"
+                    whileHover={
+                      shouldReduceMotion
+                        ? undefined
+                        : { scale: SAKER_MOTION.buttonHoverScale, y: -2 }
+                    }
+                    whileTap={
+                      shouldReduceMotion ? undefined : { scale: SAKER_MOTION.buttonTapScale }
+                    }
+                    transition={{ duration: SAKER_DURATIONS.fast, ease: SAKER_EASE }}
+                    onClick={() => onNavigate('services')}
+                    className="inline-flex items-center gap-2 px-5 sm:px-6 py-3.5 rounded-[10px] bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs sm:text-sm font-semibold transition-colors whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F5B316]"
                   >
-                    <span>Tout le catalogue ({products.length})</span>
+                    <span>Services &amp; Traiteur</span>
                   </motion.button>
 
                   <button
@@ -227,9 +279,9 @@ export const HomePage: React.FC<HomePageProps> = ({
                       className="w-3.5 h-3.5 shrink-0 transition-transform duration-200 group-hover:scale-110"
                       aria-hidden="true"
                     />
-                    <span>Carte des agences</span>
+                    <span>Nos 9 agences à Douala</span>
                   </button>
-                </div>
+                </motion.div>
               </div>
 
               {/* Aperçu visuel de la bannière officielle SAKER associée */}
@@ -253,7 +305,12 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
 
             {/* Colonne visuelle gourmande avec vrais produits SAKER interactifs */}
-            <div className="lg:col-span-5 bg-[#362015] px-4 sm:px-6 lg:px-8 xl:px-12 py-6 sm:py-8 lg:py-10 flex flex-col justify-between gap-4 border-t lg:border-t-0 lg:border-l border-white/10">
+            <motion.div
+              initial={shouldReduceMotion ? false : { opacity: 0.9, scale: 1.03 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: SAKER_DURATIONS.editorial, ease: SAKER_EASE }}
+              className="lg:col-span-5 bg-[#362015] px-4 sm:px-6 lg:px-8 xl:px-12 py-6 sm:py-8 lg:py-10 flex flex-col justify-between gap-4 border-t lg:border-t-0 lg:border-l border-white/10"
+            >
               <div className="flex items-center justify-between text-xs text-[#EAE0D5]">
                 <span className="font-semibold text-[#F5B316]">Sélection directe de l’univers</span>
                 <span className="text-[11px] opacity-80">Ajout immédiat au panier</span>
@@ -271,7 +328,12 @@ export const HomePage: React.FC<HomePageProps> = ({
                   return (
                     <motion.div
                       key={prod.id}
-                      whileHover={shouldReduceMotion ? undefined : { y: -3 }}
+                      whileHover={
+                        shouldReduceMotion
+                          ? undefined
+                          : { y: SAKER_MOTION.cardHoverLift, scale: SAKER_MOTION.cardHoverScale }
+                      }
+                      transition={{ duration: SAKER_DURATIONS.standard, ease: SAKER_EASE }}
                       onClick={() => onSelectProduct(prod)}
                       role="button"
                       tabIndex={0}
@@ -281,7 +343,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                           onSelectProduct(prod);
                         }
                       }}
-                      className="group cursor-pointer text-left bg-[#FAF7F2] rounded-[14px] p-3 text-[#212529] hover:ring-2 hover:ring-[#F5B316] transition-all flex flex-col justify-between shadow-md"
+                      className="group cursor-pointer text-left bg-[#FAF7F2] rounded-[14px] p-3 text-[#212529] hover:ring-2 hover:ring-[#F5B316] transition-shadow flex flex-col justify-between shadow-md hover:shadow-[0_18px_34px_rgba(0,0,0,0.28)]"
                     >
                       <div>
                         <div className="aspect-square w-full rounded-[10px] bg-gradient-to-b from-[#F8F3EB] to-[#EFE6D5] mb-2.5 overflow-hidden relative">
@@ -290,7 +352,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                             alt={prod.name}
                             priority
                             className="w-full h-full p-2"
-                            imgClassName="transition-transform duration-300 group-hover:scale-105"
+                            imgClassName="transition-transform duration-300 ease-out group-hover:scale-[1.03]"
                           />
                         </div>
                         <span className="block text-[10px] text-[#5C534C] font-medium truncate">
@@ -305,14 +367,19 @@ export const HomePage: React.FC<HomePageProps> = ({
                         <span className="text-xs sm:text-sm font-bold text-[#E31E24] tabular-price whitespace-nowrap">
                           {formatPriceFCFA(prod.price)}
                         </span>
-                        <button
+                        <motion.button
                           type="button"
+                          whileHover={shouldReduceMotion ? undefined : { scale: 1.08 }}
+                          whileTap={
+                            shouldReduceMotion ? undefined : { scale: SAKER_MOTION.buttonTapScale }
+                          }
+                          transition={{ duration: SAKER_DURATIONS.fast, ease: SAKER_EASE }}
                           onClick={(e) => handleQuickHeroAdd(e, prod)}
                           aria-label={`Ajouter ${prod.name} au panier`}
                           className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center transition-colors shrink-0 ${
                             isAdded
                               ? 'bg-[#099268] text-white'
-                              : 'bg-[#E31E24] hover:bg-[#C8161C] text-white'
+                              : 'bg-[#E31E24] hover:bg-[#C8161C] text-white shadow-xs'
                           }`}
                         >
                           {isAdded ? (
@@ -320,7 +387,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                           ) : (
                             <Plus className="w-3.5 h-3.5" aria-hidden="true" />
                           )}
-                        </button>
+                        </motion.button>
                       </div>
                     </motion.div>
                   );
@@ -332,7 +399,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <span>{products.length} références officielles en ligne</span>
                 <span className="text-[#F5B316] font-bold tabular-price">50 à 25 000 FCFA</span>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         </AnimatePresence>
       </section>
@@ -371,7 +438,11 @@ export const HomePage: React.FC<HomePageProps> = ({
         </section>
 
       {/* C. ACCÈS RAPIDE AUX CATÉGORIES VÉRIFIÉES */}
-      <section aria-labelledby="home-categories-heading" className="space-y-4">
+      <motion.section
+        {...getSectionRevealProps(shouldReduceMotion)}
+        aria-labelledby="home-categories-heading"
+        className="space-y-4"
+      >
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
           <div>
             <h2
@@ -402,17 +473,22 @@ export const HomePage: React.FC<HomePageProps> = ({
             <motion.button
               key={cat.id}
               type="button"
-              whileHover={shouldReduceMotion ? undefined : { y: -4 }}
+              whileHover={
+                shouldReduceMotion
+                  ? undefined
+                  : { y: SAKER_MOTION.cardHoverLift, scale: SAKER_MOTION.cardHoverScale }
+              }
               whileTap={shouldReduceMotion ? undefined : { scale: 0.98 }}
+              transition={{ duration: SAKER_DURATIONS.standard, ease: SAKER_EASE }}
               onClick={() => onNavigate('shop', cat.slug)}
-              className="group bg-white hover:bg-[#FFF4F6]/35 rounded-[14px] p-3 sm:p-4 border border-[#E6DEC8] hover:border-[#E31E24]/45 transition-colors text-left flex flex-col justify-between gap-2.5 shadow-[0_2px_10px_rgba(42,24,16,0.04)] hover:shadow-[0_14px_28px_rgba(42,24,16,0.09)] focus-visible:outline-2 focus-visible:outline-[#E31E24]"
+              className="group bg-white hover:bg-[#FFF4F6]/35 rounded-[14px] p-3 sm:p-4 border border-[#E6DEC8] hover:border-[#E31E24]/45 transition-[border-color,background-color,box-shadow] text-left flex flex-col justify-between gap-2.5 shadow-[0_2px_10px_rgba(42,24,16,0.04)] hover:shadow-[0_16px_32px_rgba(42,24,16,0.10)] focus-visible:outline-2 focus-visible:outline-[#E31E24]"
             >
               <div className="w-full aspect-[4/3] rounded-[10px] bg-gradient-to-b from-[#F8F3EB] to-[#F2E9DC] overflow-hidden">
                 <ProductImage
                   src={cat.representativeImage}
                   alt={cat.name}
                   className="w-full h-full p-2"
-                  imgClassName="transition-transform duration-500 ease-out group-hover:scale-110"
+                  imgClassName="transition-transform duration-300 ease-out group-hover:scale-[1.03]"
                 />
               </div>
               <div className="flex items-end justify-between gap-2">
@@ -457,10 +533,14 @@ export const HomePage: React.FC<HomePageProps> = ({
             En savoir plus →
           </button>
         </div>
-      </section>
+      </motion.section>
 
       {/* D. SÉLECTION DE PRODUITS ("Découvrez nos produits") AVEC FILTRES ANIMÉS */}
-      <section aria-labelledby="home-products-heading" className="space-y-5">
+      <motion.section
+        {...getSectionRevealProps(shouldReduceMotion)}
+        aria-labelledby="home-products-heading"
+        className="space-y-5"
+      >
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div>
             <h2
@@ -554,10 +634,14 @@ export const HomePage: React.FC<HomePageProps> = ({
             <ArrowRight className="w-4 h-4 text-[#E31E24]" aria-hidden="true" />
           </motion.button>
         </div>
-      </section>
+      </motion.section>
 
       {/* E. ENCARTS DE SERVICES VÉRIFIÉS AVEC VISUELS GOURMANDS */}
-      <section aria-labelledby="home-services-heading" className="space-y-4">
+      <motion.section
+        {...getSectionRevealProps(shouldReduceMotion)}
+        aria-labelledby="home-services-heading"
+        className="space-y-4"
+      >
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
           <div>
             <h2
@@ -660,10 +744,11 @@ export const HomePage: React.FC<HomePageProps> = ({
             </motion.article>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* F. PRÉSENTATION COURTE DE L'ENTREPRISE & COORDONNÉES */}
-      <section
+      <motion.section
+        {...getSectionRevealProps(shouldReduceMotion)}
         aria-labelledby="home-history-heading"
         className="rounded-[16px] bg-white border border-[#E6DEC8] p-5 sm:p-8 shadow-[0_2px_12px_rgba(42,24,16,0.04)]"
       >
@@ -766,7 +851,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             </a>
           </div>
         </div>
-      </section>
+      </motion.section>
       </div>
     </div>
   );

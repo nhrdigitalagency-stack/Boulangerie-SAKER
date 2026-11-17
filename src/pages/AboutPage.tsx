@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { BRAND_CONFIG } from '../config/brand';
+import { getSectionRevealProps } from '../config/motion';
 import { useSiteData } from '../context/SiteDataContext';
 import { ActivePage } from '../components/LeftNavigation';
 import { FaqSkeleton } from '../components/LoadingSkeletons';
@@ -64,7 +65,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
       </section>
 
       {/* Mot du Fondateur */}
-      <section
+      <motion.section
+        {...getSectionRevealProps(shouldReduceMotion)}
         aria-labelledby="founder-heading"
         className="bg-[#2A1810] text-white rounded-[18px] p-6 sm:p-8 lg:p-10 border border-[#3D2418]"
       >
@@ -87,7 +89,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             <p className="text-xs text-[#C7B8AA]">{BRAND_CONFIG.founderTitle}</p>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Notre Vision, Notre Mission & Nos Unités */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -123,7 +125,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
       </section>
 
       {/* Les 6 Valeurs officielles SAKER */}
-      <section aria-labelledby="values-heading" className="space-y-4">
+      <motion.section
+        {...getSectionRevealProps(shouldReduceMotion)}
+        aria-labelledby="values-heading"
+        className="space-y-4"
+      >
         <div>
           <div className="flex items-center gap-2 text-xs font-semibold text-[#E31E24] mb-1">
             <Award className="w-4 h-4 shrink-0" aria-hidden="true" />
@@ -152,10 +158,14 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             </article>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* Section FAQ modifiable depuis Sanity CMS */}
-      <section aria-labelledby="about-faq-heading" className="space-y-4">
+      <motion.section
+        {...getSectionRevealProps(shouldReduceMotion)}
+        aria-labelledby="about-faq-heading"
+        className="space-y-4"
+      >
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
           <div>
             <div className="flex items-center gap-2 text-xs font-semibold text-[#E31E24] mb-1">
@@ -232,7 +242,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             })}
           </div>
         )}
-      </section>
+      </motion.section>
 
       {/* Accès rapide vers Services, Boutique et Agences */}
       <section className="bg-white rounded-[16px] border border-[#E6DEC8] p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

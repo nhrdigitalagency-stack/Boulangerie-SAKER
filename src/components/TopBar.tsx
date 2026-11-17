@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ChevronDown, Heart, Menu, Phone, Search, ShoppingBag, X } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { BRAND_CONFIG } from '../config/brand';
+import { SAKER_DURATIONS, SAKER_EASE, SAKER_MOTION } from '../config/motion';
 import { useSiteData } from '../context/SiteDataContext';
 import { useStore } from '../context/StoreContext';
 import { ActivePage } from './LeftNavigation';
@@ -276,11 +277,12 @@ export const TopBar: React.FC<TopBarProps> = ({
 
           <motion.button
             type="button"
-            whileHover={shouldReduceMotion ? undefined : { y: -1 }}
-            whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
+            whileHover={shouldReduceMotion ? undefined : { scale: SAKER_MOTION.buttonHoverScale, y: -1 }}
+            whileTap={shouldReduceMotion ? undefined : { scale: SAKER_MOTION.buttonTapScale }}
+            transition={{ duration: SAKER_DURATIONS.fast, ease: SAKER_EASE }}
             onClick={onOpenFavorites}
             aria-label={`Voir mes favoris (${favorites.length})`}
-            className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-[10px] border border-[#E6DEC8] bg-[#FAF7F2] hover:bg-white hover:border-[#E31E24]/40 text-xs font-semibold text-[#212529] transition-all whitespace-nowrap shrink-0 min-h-[40px]"
+            className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-2 rounded-[10px] border border-[#E6DEC8] bg-[#FAF7F2] hover:bg-white hover:border-[#E31E24]/40 text-xs font-semibold text-[#212529] transition-colors whitespace-nowrap shrink-0 min-h-[40px]"
           >
             <Heart
               className={`w-4 h-4 shrink-0 transition-transform ${
@@ -296,15 +298,24 @@ export const TopBar: React.FC<TopBarProps> = ({
 
           <motion.button
             type="button"
-            whileHover={shouldReduceMotion ? undefined : { y: -1 }}
-            whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
+            whileHover={shouldReduceMotion ? undefined : { scale: SAKER_MOTION.buttonHoverScale, y: -1 }}
+            whileTap={shouldReduceMotion ? undefined : { scale: SAKER_MOTION.buttonTapScale }}
+            transition={{ duration: SAKER_DURATIONS.fast, ease: SAKER_EASE }}
             onClick={onOpenCart}
             aria-label={`Ouvrir mon panier (${totalQuantity} articles)`}
-            className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-[10px] bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs font-semibold transition-all whitespace-nowrap shrink-0 min-h-[40px] shadow-xs hover:shadow-md"
+            className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-[10px] bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs font-semibold transition-colors whitespace-nowrap shrink-0 min-h-[40px] shadow-xs hover:shadow-[0_6px_16px_rgba(227,30,36,0.28)]"
           >
             <ShoppingBag className="w-4 h-4 shrink-0" aria-hidden="true" />
             <span className="hidden sm:inline">Panier</span>
-            <span className="tabular-price font-bold">({totalQuantity})</span>
+            <motion.span
+              key={totalQuantity}
+              initial={shouldReduceMotion ? false : { scale: 1.25, opacity: 0.7 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: SAKER_DURATIONS.fast, ease: SAKER_EASE }}
+              className="tabular-price font-bold inline-block"
+            >
+              ({totalQuantity})
+            </motion.span>
           </motion.button>
         </div>
       </div>
