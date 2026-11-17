@@ -129,12 +129,12 @@ export const TopBar: React.FC<TopBarProps> = ({
             </span>
           </button>
 
-          {/* Bouton Panier toujours visible sur écrans < xl (sur xl+, le panier latéral droit est affiché en permanence) */}
+          {/* Bouton Panier toujours visible dans la barre supérieure */}
           <button
             type="button"
             onClick={onOpenCart}
             aria-label={`Ouvrir mon panier (${totalQuantity} articles)`}
-            className="xl:hidden inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-[10px] bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs font-semibold transition-colors whitespace-nowrap shrink-0 min-h-[40px] shadow-xs"
+            className="inline-flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-[10px] bg-[#E31E24] hover:bg-[#C8161C] text-white text-xs font-semibold transition-colors whitespace-nowrap shrink-0 min-h-[40px] shadow-xs"
           >
             <ShoppingBag className="w-4 h-4 shrink-0" aria-hidden="true" />
             <span className="hidden sm:inline">Panier</span>

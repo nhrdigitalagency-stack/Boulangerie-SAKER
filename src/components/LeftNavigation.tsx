@@ -251,12 +251,8 @@ export const LeftNavigation: React.FC<LeftNavigationProps> = ({
             <button
               type="button"
               onClick={() => {
-                if (window.innerWidth < 1280) {
-                  onCloseMobileMenu();
-                  onOpenCartDrawer();
-                } else {
-                  handleNavClick('checkout');
-                }
+                onCloseMobileMenu();
+                onOpenCartDrawer();
               }}
               className={`w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-[10px] text-xs font-semibold transition-all whitespace-nowrap ${
                 activePage === 'checkout'

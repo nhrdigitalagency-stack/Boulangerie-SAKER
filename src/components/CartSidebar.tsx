@@ -312,19 +312,11 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
 
   return (
     <>
-      {/* Colonne Panier fixe sur grand écran (xl: 1280px+) */}
-      <aside
-        aria-label="Mon panier"
-        className="hidden xl:flex xl:flex-col w-[320px] 2xl:w-[340px] shrink-0 border-l border-[#E6DEC8] bg-white sticky top-0 h-screen"
-      >
-        {renderCartContent(false)}
-      </aside>
-
-      {/* Tiroir Panier sur mobile et tablette (< xl) avec animation fluide */}
+      {/* Tiroir Panier accessible sur tous les écrans (mobile, tablette et bureau) */}
       <AnimatePresence>
         {isDrawerOpen && (
           <div
-            className="fixed inset-0 z-50 xl:hidden flex justify-end"
+            className="fixed inset-0 z-50 flex justify-end"
             role="dialog"
             aria-modal="true"
             aria-label="Mon panier"
@@ -343,7 +335,7 @@ export const CartSidebar: React.FC<CartSidebarProps> = ({
               animate={{ x: 0 }}
               exit={shouldReduceMotion ? { opacity: 0 } : { x: '100%' }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="relative z-10 w-full max-w-[360px] h-full bg-white shadow-2xl flex flex-col"
+              className="relative z-10 w-full max-w-[380px] h-full bg-white shadow-2xl flex flex-col"
             >
               {renderCartContent(true)}
             </motion.div>

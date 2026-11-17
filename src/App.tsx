@@ -249,7 +249,7 @@ const StorefrontShell: React.FC = () => {
           />
         </div>
 
-        {/* C. Panier latéral droit permanent sur grand écran (xl+) & Tiroir sur mobile/tablette */}
+        {/* C. Tiroir Panier accessible sur tous les écrans */}
         <CartSidebar
           onSelectProduct={handleSelectProduct}
           onProceedToCheckout={() => handleNavigate('checkout')}
@@ -360,11 +360,7 @@ const StorefrontShell: React.FC = () => {
                 type="button"
                 onClick={() => {
                   dismissNotice();
-                  if (window.innerWidth < 1280) {
-                    setIsCartDrawerOpen(true);
-                  } else {
-                    handleNavigate('checkout');
-                  }
+                  setIsCartDrawerOpen(true);
                 }}
                 className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#E31E24] hover:bg-[#C8161C] text-white font-semibold transition-colors whitespace-nowrap"
               >

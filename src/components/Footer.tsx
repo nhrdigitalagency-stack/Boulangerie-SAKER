@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileCheck2, MapPin, Phone, Settings } from 'lucide-react';
+import { MapPin, Phone, Settings } from 'lucide-react';
 import { BRAND_CONFIG } from '../config/brand';
 import { useSiteData } from '../context/SiteDataContext';
 import { ActivePage } from './LeftNavigation';
@@ -142,7 +142,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
           </div>
         </div>
 
-        {/* Bas de page, audit & accès propriétaire par roue d'engrenage */}
+        {/* Bas de page & accès propriétaire par roue d'engrenage */}
         <div className="mt-8 pt-6 border-t border-[#EFE9DC] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-[11px] text-[#868E96]">
           <p>
             © {new Date().getFullYear()} {BRAND_CONFIG.name} ({BRAND_CONFIG.legalGroup}).{' '}
@@ -150,15 +150,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenAdmin }) => {
           </p>
 
           <div className="flex items-center gap-3 self-end sm:self-auto">
-            <button
-              type="button"
-              onClick={() => onNavigate('audit')}
-              className="inline-flex items-center gap-1.5 text-[#5C534C] hover:text-[#E31E24] font-semibold transition-colors whitespace-nowrap"
-            >
-              <FileCheck2 className="w-3.5 h-3.5" aria-hidden="true" />
-              <span>Audit &amp; redirections 301</span>
-            </button>
-
             <button
               type="button"
               onClick={onOpenAdmin}
