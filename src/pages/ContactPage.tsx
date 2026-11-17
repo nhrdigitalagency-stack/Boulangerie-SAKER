@@ -5,7 +5,6 @@ import {
   Check,
   Clock,
   Copy,
-  Info,
   Mail,
   MapPin,
   Phone,
@@ -378,16 +377,26 @@ export const ContactPage: React.FC = () => {
 
           <div className="lg:col-span-5 space-y-4">
             <div className="p-5 rounded-[14px] bg-[#FAF7F2] border border-[#E6DEC8] space-y-3 text-xs text-[#5C534C]">
-              <div className="flex items-start gap-2.5">
-                <Info className="w-4 h-4 text-[#B45309] shrink-0 mt-0.5" aria-hidden="true" />
-                <div>
-                  <p className="font-bold text-[#212529]">Information sur les canaux de contact</p>
-                  <p className="mt-1 leading-relaxed">
-                    L’envoi de formulaire nécessite le raccordement du serveur d’e-mail de la
-                    Boulangerie SAKER. Par ailleurs, aucun bouton WhatsApp n’est activé par défaut
-                    tant que le numéro dédié WhatsApp Business n’est pas formellement confirmé.
-                  </p>
-                </div>
+              <p className="font-bold text-[#212529] text-sm">Besoin d’une réponse immédiate ?</p>
+              <p className="leading-relaxed">
+                Nos équipes vous répondent directement par téléphone pour toute question sur nos
+                pains, pâtisseries, gâteaux d’événements ou agences à Douala.
+              </p>
+              <div className="pt-1 flex flex-wrap gap-2">
+                <a
+                  href={`tel:+237${contactInfo.phonePrimary.replace(/\D/g, '')}`}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#E31E24] hover:bg-[#C8161C] text-white font-semibold transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5" aria-hidden="true" />
+                  <span className="tabular-price">+237 {contactInfo.phonePrimary}</span>
+                </a>
+                <a
+                  href={`tel:+237${contactInfo.phoneAssistance.replace(/\D/g, '')}`}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white hover:bg-[#F5EFE6] border border-[#E6DEC8] text-[#212529] font-semibold transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5 text-[#E31E24]" aria-hidden="true" />
+                  <span className="tabular-price">{contactInfo.phoneAssistance}</span>
+                </a>
               </div>
             </div>
 
