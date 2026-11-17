@@ -1,0 +1,6 @@
+{
+  "name": "Boulangerie SAKER — Pain, Pâtisserie & Traiteur à Douala",
+  "description": "Boutique en ligne et présentation des Boulangeries SAKER à Douala : panification, pâtisserie fraîche, viennoiseries, gâteaux d'anniversaire et de mariage, service traiteur, salons de thé et salles de fêtes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

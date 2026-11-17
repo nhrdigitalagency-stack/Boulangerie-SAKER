@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Charte Graphique Boulangerie SAKER — Valeurs vérifiées sur le logo officiel et base.css */
+    --saker-red-logo: #E31E24;       /* Rouge ovale du logo officiel SAKER */
+    --saker-red-primary: #EF233C;    /* --color-primary vérifié dans base.css */
+    --saker-red-dark: #D81D33;       /* --color-primary-dark vérifié dans base.css */
+    --saker-red-soft: #FFF4F6;       /* --color-primary-lighter vérifié dans base.css */
+
+    --saker-wheat-gold: #F5B316;     /* Jaune blé doré de l'épi du logo et bannière Pain Saker */
+    --saker-wheat-amber: #D9920B;    /* Variante accessible pour bordures et accents dorés */
+    --saker-wheat-soft: #FEF8E8;     /* Fond blé très clair */
+
+    --saker-crust-dark: #2A1810;     /* Brun croûte torréfiée (bannière officielle Pain Saker) */
+    --saker-crust-warm: #3D2418;
+
+    /* Surfaces neutres complémentaires (60-30-10) */
+    --saker-bg-canvas: #FAF7F2;      /* 60% Toile principale farine chaude */
+    --saker-bg-surface: #FFFFFF;     /* 30% Surface cartes et panneaux */
+    --saker-bg-product: #F5EFE6;     /* Fond studio neutre pour les détourages produits PNG */
+    --saker-bg-muted: #F1EBE1;
+
+    /* Textes & Bordures */
+    --saker-text-primary: #212529;   /* --color-text-primary vérifié dans base.css */
+    --saker-text-secondary: #5C534C;
+    --saker-text-muted: #868E96;     /* --color-text-description vérifié dans base.css */
+    --saker-border: #E6DEC8;
+    --saker-border-subtle: #EFE9DC;
+
+    /* États sémantiques (base.css) */
+    --saker-success: #099268;
+    --saker-success-bg: #E6FCF5;
+    --saker-danger: #C92A2A;
+    --saker-danger-bg: #FFF5F5;
+    --saker-warning: #B45309;
+    --saker-warning-bg: #FEF3C7;
+
+    /* Rayons & Ombres */
+    --radius-card: 14px;
+    --radius-control: 10px;
+    --shadow-card: 0 2px 12px rgba(42, 24, 16, 0.045);
+    --shadow-card-hover: 0 12px 28px rgba(42, 24, 16, 0.09);
+  }
+
+  html {
+    font-family: 'Krub', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--saker-bg-canvas);
+    color: var(--saker-text-primary);
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-color: var(--saker-bg-canvas);
+    color: var(--saker-text-primary);
+    overflow-x: hidden;
+  }
+
+  h1, h2, .font-display {
+    font-family: 'Fraunces', Georgia, serif;
+    text-wrap: balance;
+  }
+
+  .tabular-price {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom subtle scrollbars for sidebar & cart */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #DCD3C6;
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #C4B7A6;
+}
+
+/* Hide scrollbar for horizontal filter bars on mobile while preserving touch scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
